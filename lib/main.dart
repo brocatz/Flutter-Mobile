@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
+// import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_form/screens/register_screen.dart';
