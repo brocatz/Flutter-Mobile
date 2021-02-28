@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "224257149776",
+    "project_id": "clone-3fccd",
+    "storage_bucket": "clone-3fccd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224257149776:android:4d8cb8ba013941b47f3a55",
+        "android_client_info": {
+          "package_name": "com.example.flutter_form"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224257149776-i92aurqu12689qmi6elq42q5k10tn0ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArP3dV2Dq9ECQ-DApP2htzTEbYL8eGGrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224257149776-i92aurqu12689qmi6elq42q5k10tn0ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
