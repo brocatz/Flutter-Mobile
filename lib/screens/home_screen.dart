@@ -41,6 +41,13 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         elevation: 4.0,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                // do something here
+              })
+        ],
       ),
       body: Column(
         children: [
@@ -54,6 +61,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF1d2d44),
         elevation: 4.0,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

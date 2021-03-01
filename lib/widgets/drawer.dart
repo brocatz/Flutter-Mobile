@@ -15,6 +15,7 @@ class CustomDrawer extends StatelessWidget {
             children: [
               Expanded(
                 child: DrawerHeader(
+                    padding: EdgeInsets.fromLTRB(30.0, 16.0, 16.0, 8.0),
                     decoration: BoxDecoration(color: Colors.transparent),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
