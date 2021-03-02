@@ -14,6 +14,7 @@ class _CustomBottomNavigatonBarState extends State<CustomBottomNavigationBar> {
       backgroundColor: Color(0xFF1d2d44),
       elevation: 4.0,
       currentIndex: currentIndex,
+      selectedItemColor: Colors.white,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           label: 'Home',
