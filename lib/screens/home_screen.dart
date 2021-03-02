@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/models/UserModel.dart';
+import 'package:flutter_form/pageViews/homePageView.dart';
+import 'package:flutter_form/widgets/bottomNavigationBar.dart';
 import 'package:flutter_form/widgets/drawer.dart';
+
+// Is the main section of the app
+// The other section will be pageView with a pageController
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       key: _drawerKey,
       drawer: CustomDrawer(),
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: Text('Discover'),
         backgroundColor: Color(0xFF1d2d44),
         centerTitle: true,
         leading: IconButton(
@@ -49,35 +54,22 @@ class _HomePageState extends State<HomePage> {
               })
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(color: Colors.green),
-              child: Text('Text'),
-            ),
-          ),
+      body: PageView(
+        children: <Widget>[
+          HomePageView(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF1d2d44),
-        elevation: 4.0,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'Home',
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: 'Search',
-            icon: Icon(Icons.search),
-          ),
-          BottomNavigationBarItem(
-            label: 'Orders',
-            icon: Icon(Icons.food_bank),
-          ),
-        ],
-      ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
+    );
+  }
+
+  // Define the pages so that user will be able to left or rigth depend
+  // on their location in the
+  Widget pageView() {
+    final PageController controller = PageController(initialPage: 0);
+    return PageView(
+      controller: controller,
+      children: <Widget>[],
     );
   }
 }
