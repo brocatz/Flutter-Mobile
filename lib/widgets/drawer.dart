@@ -9,7 +9,11 @@ class CustomDrawer extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 20,
       ),
+<<<<<<< HEAD
       child: ListView(
+=======
+      child: Column(
+>>>>>>> drawerFix
         children: <Widget>[
           Row(
             children: [

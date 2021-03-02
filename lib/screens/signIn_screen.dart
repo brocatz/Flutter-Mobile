@@ -115,7 +115,9 @@ class _SignInState extends State<SignIn> {
           print('Errors on form');
           return;
         }
-
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return HomePage();
+        }));
         _formKey.currentState.save();
 
         // Then here we sign in and then we use Navigator.push() to get into our homepage
