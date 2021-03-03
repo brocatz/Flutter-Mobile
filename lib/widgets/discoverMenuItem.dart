@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class DiscoverMenuItem extends StatelessWidget {
+  String imageUrl;
+  String title;
+  String price;
+  String description;
+
+  DiscoverMenuItem({this.title, this.price, this.imageUrl, this.description}) {}
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,7 +55,7 @@ class DiscoverMenuItem extends StatelessWidget {
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)),
                       image: DecorationImage(
-                        image: AssetImage('assets/images/crepe.jpg'),
+                        image: AssetImage(this.imageUrl),
                         fit: BoxFit.fill,
                       ),
                     )),
@@ -74,7 +81,7 @@ class DiscoverMenuItem extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "Crepes",
+                            this.title,
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),
@@ -82,9 +89,12 @@ class DiscoverMenuItem extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text(
-                            'Description',
-                            style: TextStyle(fontSize: 16),
+                          Flexible(
+                            child: Text(
+                              this.description,
+                              style: TextStyle(fontSize: 16),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),

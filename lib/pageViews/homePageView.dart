@@ -14,14 +14,31 @@ class HomePageView extends StatelessWidget {
           right: 20,
         ),
         children: <Widget>[
-          DiscoverMenuItem(),
-          SizedBox(
-            height: 5,
+          DiscoverMenuItem(
+            imageUrl: 'assets/images/crepe.jpg',
+            title: 'Crepes',
+            description:
+                'Crepes made from France with a delicious taste that will melt your mouth',
           ),
-          DiscoverMenuItem(),
-          SizedBox(
-            height: 5,
-          )
+          SizedBox(height: 5),
+          DiscoverMenuItem(
+            imageUrl: 'assets/images/ramen.jpeg',
+            title: 'Ramen',
+            description: 'Japanese style ramen',
+          ),
+          SizedBox(height: 5),
+          DiscoverMenuItem(
+            imageUrl: 'assets/images/salade.jpeg',
+            title: 'Salad',
+            description:
+                'Healty salad compose of a lot of fruits and vegetable',
+          ),
+          SizedBox(height: 4),
+          DiscoverMenuItem(
+            imageUrl: 'assets/images/pumpkin.jpg',
+            title: 'Pumpkin Soup',
+            description: 'A healty soup that will boost your immunitive system',
+          ),
         ],
       ),
     );
