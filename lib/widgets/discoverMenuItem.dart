@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form/screens/restaurantItemDetail_screen.dart';
 
 class DiscoverMenuItem extends StatelessWidget {
   String imageUrl;
@@ -6,7 +7,7 @@ class DiscoverMenuItem extends StatelessWidget {
   String price;
   String description;
 
-  DiscoverMenuItem({this.title, this.price, this.imageUrl, this.description}) {}
+  DiscoverMenuItem({this.title, this.price, this.imageUrl, this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +41,33 @@ class DiscoverMenuItem extends StatelessWidget {
               //   ),
               // ),
               Expanded(
-                child: Container(
-                    height: 250,
-                    decoration: new BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 2,
-                          offset: Offset(0, 3),
-                        )
-                      ],
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30)),
-                      image: DecorationImage(
-                        image: AssetImage(this.imageUrl),
-                        fit: BoxFit.fill,
-                      ),
-                    )),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => RestaurantItemDetailScreen()));
+                  },
+                  child: Container(
+                      height: 250,
+                      decoration: new BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 2,
+                            offset: Offset(0, 3),
+                          )
+                        ],
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30)),
+                        image: DecorationImage(
+                          image: AssetImage(this.imageUrl),
+                          fit: BoxFit.fill,
+                        ),
+                      )),
+                ),
               ),
             ],
           ),
@@ -113,12 +122,22 @@ class DiscoverMenuItem extends StatelessWidget {
                                   children: [
                                     Expanded(
                                         child: Text(
-                                      'Price : 80\$',
+                                      'Price: ' + this.price,
                                       textAlign: TextAlign.center,
                                     )),
                                     Expanded(
                                       child: InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Scaffold.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                                'Added ${this.title} for ${this.price} in the cart'),
+                                            action: SnackBarAction(
+                                              label: 'Undo',
+                                              onPressed: () {},
+                                            ),
+                                          ));
+                                        },
                                         child: Text(
                                           'Add to cart',
                                           style: TextStyle(

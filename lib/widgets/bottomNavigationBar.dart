@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
+  final PageController pageViewController;
+
+  CustomBottomNavigationBar({this.pageViewController});
+
   @override
   _CustomBottomNavigatonBarState createState() =>
       _CustomBottomNavigatonBarState();
@@ -30,9 +34,13 @@ class _CustomBottomNavigatonBarState extends State<CustomBottomNavigationBar> {
         ),
       ],
       onTap: (index) {
+        if (index == currentIndex) return;
         setState(() {
           currentIndex = index;
         });
+        // Here we do a transition from Page View
+        /* widget.pageViewController.animateToPage(index,
+            duration: Duration(milliseconds: 500), curve: Curves.bounceIn); */
       },
     );
   }

@@ -20,7 +20,10 @@ class CustomDrawer extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(radius: 50),
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('assets/images/Me.jpg'),
+                        ),
                         SizedBox(height: 10),
                         Text(
                           'FirstName',

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/models/UserModel.dart';
 import 'package:flutter_form/pageViews/homePageView.dart';
+import 'package:flutter_form/pageViews/searchPageView.dart';
 import 'package:flutter_form/widgets/bottomNavigationBar.dart';
 import 'package:flutter_form/widgets/drawer.dart';
 
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final PageController controller = PageController(initialPage: 0);
 
   UserModel userModel;
   @override
@@ -57,16 +59,20 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         children: <Widget>[
           HomePageView(),
+          SearchPageView(),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        pageViewController: controller,
+      ),
     );
   }
 
   // Define the pages so that user will be able to left or rigth depend
   // on their location in the
+  // animateToPage Method in the page view
   Widget pageView() {
-    final PageController controller = PageController(initialPage: 0);
+    //final PageController controller = PageController(initialPage: 0);
     return PageView(
       controller: controller,
       children: <Widget>[],
