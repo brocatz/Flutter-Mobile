@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_form/constant/Constant.dart';
 import 'package:flutter_form/screens/home_screen.dart';
 
 class MyCustomForm extends StatefulWidget {
@@ -169,17 +170,21 @@ class _MyCustomFormState extends State<MyCustomForm> {
         return null;
       },
     );
-  }
+  
 */
   Widget _submit() {
-    return RaisedButton(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30))),
-      color: Color(0xFF90be6d),
+    return ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(formButtonColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ))),
       child: Text(
         'Register',
         style: TextStyle(
           fontSize: 16.0,
+          color: Colors.black,
         ),
       ),
       onPressed: () async {

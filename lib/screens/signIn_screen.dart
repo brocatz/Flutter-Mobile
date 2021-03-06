@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form/constant/Constant.dart';
 
 import 'home_screen.dart';
 
@@ -48,6 +49,7 @@ class _SignInState extends State<SignIn> {
 
   Widget _buildEmail() {
     return TextFormField(
+      initialValue: initialEmailAdress,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           filled: true,
@@ -68,6 +70,7 @@ class _SignInState extends State<SignIn> {
 
   Widget _buildPassword() {
     return TextFormField(
+      initialValue: initialPassword,
       obscureText: isPasswordObsure,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
@@ -101,14 +104,16 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget _buildSubmit() {
-    return RaisedButton(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30))),
+    return ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(formButtonColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))))),
       child: Text(
         'Login',
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16, color: Colors.black),
       ),
-      color: Color(0xFF90be6d),
       onPressed: () async {
         // Make sure that all the fields are validated proprely
         if (!_formKey.currentState.validate()) {
