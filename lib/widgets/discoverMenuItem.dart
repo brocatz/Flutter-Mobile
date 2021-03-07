@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form/screens/restaurantItemDetail_screen.dart';
 
 class DiscoverMenuItem extends StatelessWidget {
-  String imageUrl;
-  String title;
-  String price;
-  String description;
+  final String imageUrl;
+  final String title;
+  final String price;
+  final String description;
 
   DiscoverMenuItem({this.title, this.price, this.imageUrl, this.description});
 
