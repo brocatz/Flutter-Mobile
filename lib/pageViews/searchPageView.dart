@@ -11,7 +11,7 @@ class _SearchPageViewState extends State<SearchPageView> {
     return Container(
       decoration: BoxDecoration(color: Color.fromRGBO(32, 32, 32, 0.5)),
       child: Center(
-        child: Text('Hello World'),
+        child: Text('Search'),
       ),
     ); // go to return something here
   }

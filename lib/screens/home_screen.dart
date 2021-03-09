@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/pageViewChangeNotifier.dart';
 import 'package:flutter_form/models/UserModel.dart';
 import 'package:flutter_form/pageViews/homePageView.dart';
+import 'package:flutter_form/pageViews/orderPageView.dart';
 import 'package:flutter_form/pageViews/searchPageView.dart';
+import 'package:flutter_form/screens/cart_screen.dart';
 import 'package:flutter_form/widgets/bottomNavigationBar.dart';
 import 'package:flutter_form/widgets/drawer.dart';
 
@@ -57,7 +59,9 @@ class _HomePageState extends State<HomePage> {
             IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {
-                  // do something here
+                  // open the Car Page
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => CartScreen()));
                 })
           ],
         ),
@@ -83,6 +87,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           HomePageView(),
           SearchPageView(),
+          OrderPageView(),
         ],
       );
     });

@@ -128,7 +128,7 @@ class DiscoverMenuItem extends StatelessWidget {
                                     Expanded(
                                       child: InkWell(
                                         onTap: () {
-                                          Scaffold.of(context)
+                                          ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content: Text(
                                                 'Added ${this.title} for ${this.price} in the cart'),

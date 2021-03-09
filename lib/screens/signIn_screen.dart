@@ -126,28 +126,28 @@ class _SignInState extends State<SignIn> {
         _formKey.currentState.save();
 
         // Then here we sign in and then we use Navigator.push() to get into our homepage
-        try {
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: emailAdress, password: password);
+        // try {
+        //   await FirebaseAuth.instance.signInWithEmailAndPassword(
+        //       email: emailAdress, password: password);
 
-          // If there are no error we check for the user first
-          FirebaseAuth.instance.authStateChanges().listen((User user) {
-            if (user != null) {
-              // Push user to homePage
-              Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return HomePage();
-              }));
-            }
-          });
-        } on FirebaseException catch (e) {
-          if (e.code == 'user-not-found') {
-            print('User is not found bro');
-            return;
-          } else if (e.code == 'wrong-passowrd') {
-            print('The entry does not matches anything in our records');
-            return;
-          }
-        }
+        //   // If there are no error we check for the user first
+        //   FirebaseAuth.instance.authStateChanges().listen((User user) {
+        //     if (user != null) {
+        //       // Push user to homePage
+        //       Navigator.push(context, MaterialPageRoute(builder: (_) {
+        //         return HomePage();
+        //       }));
+        //     }
+        //   });
+        // } on FirebaseException catch (e) {
+        //   if (e.code == 'user-not-found') {
+        //     print('User is not found bro');
+        //     return;
+        //   } else if (e.code == 'wrong-passowrd') {
+        //     print('The entry does not matches anything in our records');
+        //     return;
+        //   }
+        // }
       },
     );
   }

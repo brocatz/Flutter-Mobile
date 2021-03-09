@@ -11,13 +11,19 @@ class PageViewChangeNotifier with ChangeNotifier {
   int currentPage = 0;
   PageController pageController = PageController(initialPage: 0);
 
+  List<String> appBarTitle = ['Discover', 'Search', 'Order'];
+  String firstTitle;
+  String secondTitle;
+
   int get currentViewPage => currentPage;
   PageController get getCurrentPageController => pageController;
 
   void setCurrentPageFromBottomNavigationBar(int setCurrentPage) {
     pageController.animateToPage(setCurrentPage,
         duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-    notifyListeners();
+    // We don t need to call notifyListener because we are not updating the Ui
+    // we are calling the pageController to do that for us
+    // notifyListeners();
   }
 
   void setCurrentPage(int setCurrentPage) {
