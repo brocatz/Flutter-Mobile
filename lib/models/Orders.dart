@@ -5,8 +5,6 @@ class Orders {
   int confirmationNumber; // The Id;
   DateTime dateFoodOrder;
 
-  List<RestaurantMenuItemModel> list;
+  List<RestaurantMenuItemModel> listItemOrder;
   UserModel user;
-
-  double totalPrice;
 }
