@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form/constant/Constant.dart';
 
 class Counter extends StatelessWidget {
@@ -15,6 +16,7 @@ class Counter extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: Icon(
                   Icons.arrow_left,
+                  color: Colors.red,
                   size: 40,
                 ),
                 onPressed: () {},
@@ -23,6 +25,11 @@ class Counter extends StatelessWidget {
             Container(
               width: 40,
               child: TextField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(2),
+                  FilteringTextInputFormatter(RegExp(r'^[0-9]+$'),
+                      allow: true, replacementString: ''),
+                ],
                 style: TextStyle(),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
@@ -37,6 +44,7 @@ class Counter extends StatelessWidget {
                 icon: Icon(
                   Icons.arrow_right,
                   size: 40,
+                  color: Colors.green,
                 ),
                 onPressed: () {},
               ),
