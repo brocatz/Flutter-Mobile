@@ -4,19 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 
 class CartNotifier with ChangeNotifier {
-  // List<RestaurantMenuItemModel> _listRestaurentMenuItems = [];
-
+  final int minNumberOfSpecifiqueCartItem = 0;
+  final int maxNumberOfSpecifiqueCartItem = 100;
   LinkedHashMap<RestaurantMenuItemModel, int> _mapRestaurentMenuItems =
       new LinkedHashMap();
 
   // To initialise the iterable use the void setIterable()
   // ignore: unused_field
   Iterator<MapEntry<RestaurantMenuItemModel, int>> _iterable;
-
   Iterator<MapEntry<RestaurantMenuItemModel, int>> get iterable => _iterable;
 
-  // List<RestaurantMenuItemModel> get listRestaurentMenuItem =>
-  //     _listRestaurentMenuItems;
   LinkedHashMap<RestaurantMenuItemModel, int> get mapRestaurentMenuItems =>
       _mapRestaurentMenuItems;
 
@@ -30,14 +27,13 @@ class CartNotifier with ChangeNotifier {
       // Meaning that this is our first entry
       _mapRestaurentMenuItems.putIfAbsent(restaurantMenuItemModel, () => 1);
     }
-    // _listRestaurentMenuItems.add(restaurantMenuItemModel);
+
     notifyListeners();
   }
 
   void removeRestaurantMenuItemFromCart(
       RestaurantMenuItemModel restaurantMenuItemModel) {
     // remove the restaurent menu item
-    // _listRestaurentMenuItems.remove(restaurantMenuItemModel);
     _mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) => --value);
   }
 
@@ -63,7 +59,21 @@ class CartNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  // Return the quantity of each cart item
-  // For exemple 2 crepes , 5 salades etc
-  int quantityOfEachCartItem(RestaurantMenuItemModel restaurantMenuItemModel) {}
+  void decrementCartItemQuantity(
+      RestaurantMenuItemModel restaurantMenuItemModel) {
+    this._mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) {
+      // If the value is zero than don't decrement further
+      // we do not want negative values
+      return (value == minNumberOfSpecifiqueCartItem) ? value : --value;
+    });
+    notifyListeners();
+  }
+
+  void incrementCartItemQuantity(
+      RestaurantMenuItemModel restaurantMenuItemModel) {
+    this._mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) {
+      return (value == maxNumberOfSpecifiqueCartItem) ? value : ++value;
+    });
+    notifyListeners();
+  }
 }

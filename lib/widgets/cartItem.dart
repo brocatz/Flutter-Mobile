@@ -5,15 +5,18 @@ import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 import 'mini/counter.dart';
 
 class CartItem extends StatelessWidget {
-  final RestaurantMenuItemModel restaurantMenuItemModel;
-  final int
-      quantity; // this value is going to be pass down to the counter widget
+  // final RestaurantMenuItemModel restaurantMenuItemModel;
+
+  // final int
+  //     quantity; // this value is going to be pass down to the counter widget
+  final MapEntry<RestaurantMenuItemModel, int> mapEntryRestaurentMenuItemModel;
   final int index;
 
   CartItem({
-    @required this.restaurantMenuItemModel,
+    // @required this.restaurantMenuItemModel,
+    // @required this.quantity,
     @required this.index,
-    @required this.quantity,
+    @required this.mapEntryRestaurentMenuItemModel,
   });
   @override
   Widget build(BuildContext context) => Dismissible(
@@ -58,7 +61,8 @@ class CartItem extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            child: Text(this.restaurantMenuItemModel.title,
+                            child: Text(
+                                this.mapEntryRestaurentMenuItemModel.key.title,
                                 style: TextStyle(
                                     color: Color(0xFFf1dca7),
                                     fontSize: 20,
@@ -94,7 +98,7 @@ class CartItem extends StatelessWidget {
                                 height: 40,
                                 child: Center(
                                     child: Text(
-                                  "${this.restaurantMenuItemModel.price}\$",
+                                  "${this.mapEntryRestaurentMenuItemModel.key.price}\$",
                                   style: TextStyle(fontSize: 20),
                                 )),
                               ),
@@ -117,7 +121,8 @@ class CartItem extends StatelessWidget {
                           ),
                         ),
                         Counter(
-                          quantity: this.quantity,
+                          mapEntryRestaurantMenuItem:
+                              mapEntryRestaurentMenuItemModel,
                         ),
                       ],
                     ),

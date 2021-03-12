@@ -94,9 +94,8 @@ class _CartScreenState extends State<StatefulWidget> {
                               .getRestaurantMapEntryMenuItemFromIterator();
 
                       return CartItem(
-                        quantity: mapCartItems.value,
+                        mapEntryRestaurentMenuItemModel: mapCartItems,
                         index: index + 1,
-                        restaurantMenuItemModel: mapCartItems.key,
                       );
                     },
                   )
