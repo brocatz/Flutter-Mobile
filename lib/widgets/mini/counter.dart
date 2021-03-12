@@ -3,6 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form/constant/Constant.dart';
 
 class Counter extends StatelessWidget {
+  final int quantity;
+
+  Counter({
+    @required this.quantity,
+  });
+
   @override
   Widget build(BuildContext context) => Container(
         // color: Colors.red,
@@ -33,7 +39,8 @@ class Counter extends StatelessWidget {
                 style: TextStyle(),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
-                controller: TextEditingController(text: '0'),
+                controller:
+                    TextEditingController(text: this.quantity.toString()),
                 decoration: InputDecoration(border: InputBorder.none),
               ),
             ),

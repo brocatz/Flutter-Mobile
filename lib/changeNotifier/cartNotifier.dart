@@ -11,9 +11,9 @@ class CartNotifier with ChangeNotifier {
 
   // To initialise the iterable use the void setIterable()
   // ignore: unused_field
-  Iterator<RestaurantMenuItemModel> _iterable;
+  Iterator<MapEntry<RestaurantMenuItemModel, int>> _iterable;
 
-  Iterator<RestaurantMenuItemModel> get iterable => _iterable;
+  Iterator<MapEntry<RestaurantMenuItemModel, int>> get iterable => _iterable;
 
   // List<RestaurantMenuItemModel> get listRestaurentMenuItem =>
   //     _listRestaurentMenuItems;
@@ -45,11 +45,14 @@ class CartNotifier with ChangeNotifier {
   // So that we can get the Iterator from tge Map to display
   // what we choose
   void setIterable() {
-    _iterable = mapRestaurentMenuItems.keys.iterator;
+    _iterable = mapRestaurentMenuItems.entries.iterator;
   }
 
   // Return the RestaurantMenuItemModel from Iterator
-  RestaurantMenuItemModel getRestaurantMenuItemFromIterator() {
+  // This has been modify to be a little more complex
+
+  MapEntry<RestaurantMenuItemModel, int>
+      getRestaurantMapEntryMenuItemFromIterator() {
     return _iterable.moveNext() ? iterable.current : null;
   }
 

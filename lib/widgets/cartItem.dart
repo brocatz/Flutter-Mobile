@@ -6,11 +6,14 @@ import 'mini/counter.dart';
 
 class CartItem extends StatelessWidget {
   final RestaurantMenuItemModel restaurantMenuItemModel;
+  final int
+      quantity; // this value is going to be pass down to the counter widget
   final int index;
 
   CartItem({
     @required this.restaurantMenuItemModel,
     @required this.index,
+    @required this.quantity,
   });
   @override
   Widget build(BuildContext context) => Dismissible(
@@ -113,7 +116,9 @@ class CartItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Counter(),
+                        Counter(
+                          quantity: this.quantity,
+                        ),
                       ],
                     ),
                   )

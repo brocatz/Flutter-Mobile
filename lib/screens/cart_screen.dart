@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
+import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 import 'package:flutter_form/widgets/cartItem.dart';
 import 'package:provider/provider.dart';
 
@@ -83,10 +84,19 @@ class _CartScreenState extends State<StatefulWidget> {
                 ? ListView.builder(
                     itemCount: cartNotifier.mapRestaurentMenuItems.length,
                     itemBuilder: (context, index) {
+                      // Get The MapEnty
+                      // Then Pass the RestaurantMenuItem and int to the
+                      // corresponding fields
+
+                      // This is an iterator method
+                      MapEntry<RestaurantMenuItemModel, int> mapCartItems =
+                          cartNotifier
+                              .getRestaurantMapEntryMenuItemFromIterator();
+
                       return CartItem(
+                        quantity: mapCartItems.value,
                         index: index + 1,
-                        restaurantMenuItemModel:
-                            cartNotifier.getRestaurantMenuItemFromIterator(),
+                        restaurantMenuItemModel: mapCartItems.key,
                       );
                     },
                   )
