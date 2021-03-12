@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/screens/register_screen.dart';
 import 'package:flutter_form/screens/signIn_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,34 +24,41 @@ class FormTutorial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Form Tutorial',
-        home: Scaffold(
-          /* appBar: AppBar(
-            backgroundColor: Colors.teal,
-            centerTitle: true,
-            title: Text('Form Tutorial'),
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
-          ), */
-          body: FutureBuilder(
-            future: _initialization,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                print('Error my boi');
-                return Text('Error'); // a widget showing some kind of error
-              }
-              if (snapshot.connectionState == ConnectionState.done) {
-                return pageView();
-              }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CartNotifier(),
+        )
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Form Tutorial',
+          home: Scaffold(
+            /* appBar: AppBar(
+              backgroundColor: Colors.teal,
+              centerTitle: true,
+              title: Text('Form Tutorial'),
+              leading: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {},
+              ),
+            ), */
+            body: FutureBuilder(
+              future: _initialization,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error my boi');
+                  return Text('Error'); // a widget showing some kind of error
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return pageView();
+                }
 
-              return Center(child: CircularProgressIndicator());
-            },
-          ),
-        ));
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
+          )),
+    );
   }
 
   Widget pageView() {

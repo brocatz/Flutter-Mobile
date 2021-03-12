@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/changeNotifier/pageViewChangeNotifier.dart';
 import 'package:flutter_form/models/UserModel.dart';
 import 'package:flutter_form/pageViews/homePageView.dart';
@@ -39,8 +40,13 @@ class _HomePageState extends State<HomePage> {
       }
       print(user);
     });
-    return ChangeNotifierProvider(
-      create: (context) => PageViewChangeNotifier(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PageViewChangeNotifier()),
+        // ChangeNotifierProvider(
+        //   create: (_) => CartNotifier(),
+        // ),
+      ],
       child: Scaffold(
         key: _drawerKey,
         drawer: CustomDrawer(),
@@ -59,7 +65,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {
-                  // open the Car Page
+                  // open the Cart Page
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => CartScreen()));
                 })

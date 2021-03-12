@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 
 import 'mini/counter.dart';
 
 class CartItem extends StatelessWidget {
+  final RestaurantMenuItemModel restaurantMenuItemModel;
+
+  CartItem({this.restaurantMenuItemModel});
   @override
   Widget build(BuildContext context) => Dismissible(
         key: ValueKey('a'),
-        onDismissed: (dismissDirection) {},
+        onDismissed: (dismissDirection) {
+          // remove element
+        },
         child: Container(
+          margin: EdgeInsets.only(bottom: 10),
           width: 250,
           height: 120,
           decoration: BoxDecoration(
@@ -44,7 +51,7 @@ class CartItem extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            child: Text('Crepes',
+                            child: Text(this.restaurantMenuItemModel.title,
                                 style: TextStyle(
                                     color: Color(0xFFf1dca7),
                                     fontSize: 20,
@@ -80,7 +87,7 @@ class CartItem extends StatelessWidget {
                                 height: 40,
                                 child: Center(
                                     child: Text(
-                                  "300\$",
+                                  "${this.restaurantMenuItemModel.price}\$",
                                   style: TextStyle(fontSize: 20),
                                 )),
                               ),
