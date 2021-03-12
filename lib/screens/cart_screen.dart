@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
+import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 import 'package:flutter_form/widgets/cartItem.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +13,12 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<StatefulWidget> {
   @override
-  Widget build(BuildContext context) => Consumer<CartNotifier>(
-        builder: (context, cartNotifier, child) => Scaffold(
+  Widget build(BuildContext context) =>
+      Consumer<CartNotifier>(builder: (context, cartNotifier, child) {
+        // set The iterater
+        cartNotifier.setIterable();
+
+        return Scaffold(
           appBar: AppBar(
             title: Text("Cart"),
             centerTitle: true,
@@ -78,11 +83,11 @@ class _CartScreenState extends State<StatefulWidget> {
             decoration: BoxDecoration(color: backgroundColor),
             padding: EdgeInsets.only(top: 10.0, left: 20, right: 20),
             child: ListView.builder(
-              itemCount: cartNotifier.listRestaurentMenuItem.length,
+              itemCount: cartNotifier.mapRestaurentMenuItems.length,
               itemBuilder: (context, index) {
                 return CartItem(
                   restaurantMenuItemModel:
-                      cartNotifier.listRestaurentMenuItem[index],
+                      cartNotifier.getRestaurantMenuItemFromIterator(),
                 );
               },
             ),
@@ -100,6 +105,6 @@ class _CartScreenState extends State<StatefulWidget> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-        ),
-      );
+        );
+      });
 }
