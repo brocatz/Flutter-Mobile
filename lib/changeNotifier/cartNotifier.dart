@@ -41,11 +41,26 @@ class CartNotifier with ChangeNotifier {
     _mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) => --value);
   }
 
+  // We set the SetIterable right we clicking the Cart Icon
+  // So that we can get the Iterator from tge Map to display
+  // what we choose
   void setIterable() {
     _iterable = mapRestaurentMenuItems.keys.iterator;
   }
 
+  // Return the RestaurantMenuItemModel from Iterator
   RestaurantMenuItemModel getRestaurantMenuItemFromIterator() {
     return _iterable.moveNext() ? iterable.current : null;
   }
+
+  // Deletes the cart elements when the user confirms that they want
+  // to empty the cart
+  void deleteAllCartItems() {
+    _mapRestaurentMenuItems.clear();
+    notifyListeners();
+  }
+
+  // Return the quantity of each cart item
+  // For exemple 2 crepes , 5 salades etc
+  int quantityOfEachCartItem(RestaurantMenuItemModel restaurantMenuItemModel) {}
 }

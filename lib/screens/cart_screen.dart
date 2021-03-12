@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
-import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 import 'package:flutter_form/widgets/cartItem.dart';
 import 'package:provider/provider.dart';
 
@@ -48,15 +47,13 @@ class _CartScreenState extends State<StatefulWidget> {
                           TextButton(
                             onPressed: () {
                               // do something here
-                              // then pop
+                              cartNotifier.deleteAllCartItems();
                               Navigator.of(context).pop();
                             },
                             child: Text('Yes'),
                           ),
                           TextButton(
                             onPressed: () {
-                              // do something here
-                              // then pop
                               Navigator.of(context).pop();
                             },
                             child: Text('No'),
@@ -82,15 +79,20 @@ class _CartScreenState extends State<StatefulWidget> {
           body: Container(
             decoration: BoxDecoration(color: backgroundColor),
             padding: EdgeInsets.only(top: 10.0, left: 20, right: 20),
-            child: ListView.builder(
-              itemCount: cartNotifier.mapRestaurentMenuItems.length,
-              itemBuilder: (context, index) {
-                return CartItem(
-                  restaurantMenuItemModel:
-                      cartNotifier.getRestaurantMenuItemFromIterator(),
-                );
-              },
-            ),
+            child: (cartNotifier.mapRestaurentMenuItems.isNotEmpty)
+                ? ListView.builder(
+                    itemCount: cartNotifier.mapRestaurentMenuItems.length,
+                    itemBuilder: (context, index) {
+                      return CartItem(
+                        index: index + 1,
+                        restaurantMenuItemModel:
+                            cartNotifier.getRestaurantMenuItemFromIterator(),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text('Cart is empty'),
+                  ),
           ),
           floatingActionButton: Container(
             width: 300,

@@ -6,8 +6,12 @@ import 'mini/counter.dart';
 
 class CartItem extends StatelessWidget {
   final RestaurantMenuItemModel restaurantMenuItemModel;
+  final int index;
 
-  CartItem({this.restaurantMenuItemModel});
+  CartItem({
+    @required this.restaurantMenuItemModel,
+    @required this.index,
+  });
   @override
   Widget build(BuildContext context) => Dismissible(
         key: ValueKey('a'),
@@ -43,7 +47,7 @@ class CartItem extends StatelessWidget {
                             constraints:
                                 BoxConstraints(minWidth: 80, maxWidth: 80),
                             child: Text(
-                              'No .1',
+                              'No .${this.index}',
                               style: TextStyle(
                                   color: Color(0xFFf1dca7),
                                   fontSize: 20,
