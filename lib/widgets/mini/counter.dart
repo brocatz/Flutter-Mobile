@@ -31,7 +31,7 @@ class Counter extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Deincrement
-                    cartNotifier.decrementCartItemQuantity(
+                    cartNotifier.removeRestaurantMenuItemFromCart(
                         mapEntryRestaurantMenuItem.key);
                   },
                 ),
@@ -39,6 +39,11 @@ class Counter extends StatelessWidget {
               Container(
                 width: 40,
                 child: TextField(
+                  onChanged: (value) {
+                    // convert the value from the Textfied and set it to the totalItemVariable
+                    cartNotifier.setTotalNumberOfSpecifiqueItem(
+                        mapEntryRestaurantMenuItem.key, int.parse(value));
+                  },
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(2),
                     FilteringTextInputFormatter(RegExp(r'^[0-9]+$'),
@@ -62,7 +67,7 @@ class Counter extends StatelessWidget {
                     color: Colors.green,
                   ),
                   onPressed: () {
-                    cartNotifier.incrementCartItemQuantity(
+                    cartNotifier.addRestaurantMenuItemToCart(
                         mapEntryRestaurantMenuItem.key);
                   },
                 ),

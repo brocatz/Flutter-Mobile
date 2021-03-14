@@ -110,7 +110,8 @@ class _CartScreenState extends State<StatefulWidget> {
               style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.black)),
-              child: Text('Buy Items'),
+              child: Text(
+                  'Purchase Items for : ${cartNotifier.totalPriceOfCartsItems.toStringAsFixed(2)} \$'),
               onPressed: () {},
             ),
           ),

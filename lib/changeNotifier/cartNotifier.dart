@@ -6,6 +6,7 @@ import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 class CartNotifier with ChangeNotifier {
   final int minNumberOfSpecifiqueCartItem = 0;
   final int maxNumberOfSpecifiqueCartItem = 100;
+  double _totalPriceOfCartItems = 0;
   LinkedHashMap<RestaurantMenuItemModel, int> _mapRestaurentMenuItems =
       new LinkedHashMap();
 
@@ -17,24 +18,24 @@ class CartNotifier with ChangeNotifier {
   LinkedHashMap<RestaurantMenuItemModel, int> get mapRestaurentMenuItems =>
       _mapRestaurentMenuItems;
 
+  double get totalPriceOfCartsItems =>
+      _totalPriceOfCartItems; // asStringFixed(2)
+
   void addRestaurantMenuItemToCart(
       RestaurantMenuItemModel restaurantMenuItemModel) {
     // add the Resturanet Menu Item to the map
     if (_mapRestaurentMenuItems.containsKey(restaurantMenuItemModel)) {
       _mapRestaurentMenuItems.update(
-          restaurantMenuItemModel, (value) => ++value);
+          restaurantMenuItemModel,
+          (value) =>
+              (value == maxNumberOfSpecifiqueCartItem) ? value : ++value);
     } else {
       // Meaning that this is our first entry
       _mapRestaurentMenuItems.putIfAbsent(restaurantMenuItemModel, () => 1);
     }
+    _totalPriceOfCartItems += restaurantMenuItemModel.price;
 
     notifyListeners();
-  }
-
-  void removeRestaurantMenuItemFromCart(
-      RestaurantMenuItemModel restaurantMenuItemModel) {
-    // remove the restaurent menu item
-    _mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) => --value);
   }
 
   // We set the SetIterable right we clicking the Cart Icon
@@ -59,21 +60,25 @@ class CartNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  void decrementCartItemQuantity(
+  void removeRestaurantMenuItemFromCart(
       RestaurantMenuItemModel restaurantMenuItemModel) {
     this._mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) {
       // If the value is zero than don't decrement further
       // we do not want negative values
       return (value == minNumberOfSpecifiqueCartItem) ? value : --value;
     });
+
+    if (_totalPriceOfCartItems != 0)
+      _totalPriceOfCartItems -= restaurantMenuItemModel.price;
+
     notifyListeners();
   }
 
-  void incrementCartItemQuantity(
-      RestaurantMenuItemModel restaurantMenuItemModel) {
-    this._mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) {
-      return (value == maxNumberOfSpecifiqueCartItem) ? value : ++value;
-    });
+  void setTotalNumberOfSpecifiqueItem(
+      RestaurantMenuItemModel restaurantMenuItemModel,
+      int totalNumberOfSpecifiqueItem) {
+    _mapRestaurentMenuItems.update(restaurantMenuItemModel,
+        (value) => (value >= 100 && value < 0) ? value : 0);
     notifyListeners();
   }
 }

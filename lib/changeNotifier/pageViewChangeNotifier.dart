@@ -19,8 +19,13 @@ class PageViewChangeNotifier with ChangeNotifier {
   PageController get getCurrentPageController => pageController;
 
   void setCurrentPageFromBottomNavigationBar(int setCurrentPage) {
+    // To make the animation more smooth
+
+    int pageDifference = (setCurrentPage - pageController.initialPage).abs();
+
     pageController.animateToPage(setCurrentPage,
-        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+        duration: Duration(milliseconds: 500 * (pageDifference)),
+        curve: Curves.easeIn);
     // We don t need to call notifyListener because we are not updating the Ui
     // we are calling the pageController to do that for us
     // notifyListeners();
