@@ -51,7 +51,10 @@ class _CartScreenState extends State<StatefulWidget> {
                               cartNotifier.deleteAllCartItems();
                               Navigator.of(context).pop();
                             },
-                            child: Text('Yes'),
+                            child: Text(
+                              'Yes',
+                              style: TextStyle(color: Colors.red),
+                            ),
                           ),
                           TextButton(
                             onPressed: () {

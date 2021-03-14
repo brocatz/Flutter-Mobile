@@ -57,6 +57,7 @@ class CartNotifier with ChangeNotifier {
   // to empty the cart
   void deleteAllCartItems() {
     _mapRestaurentMenuItems.clear();
+    _totalPriceOfCartItems = 0;
     notifyListeners();
   }
 
