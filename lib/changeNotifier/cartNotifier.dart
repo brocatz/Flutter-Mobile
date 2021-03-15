@@ -7,6 +7,9 @@ class CartNotifier with ChangeNotifier {
   final int minNumberOfSpecifiqueCartItem = 0;
   final int maxNumberOfSpecifiqueCartItem = 100;
   double _totalPriceOfCartItems = 0;
+  int _totalNumberOfSelectedItems = 0;
+  bool _showBagdeNotification = false; // False at first
+  // then when we start to add items to cart show
   LinkedHashMap<RestaurantMenuItemModel, int> _mapRestaurentMenuItems =
       new LinkedHashMap();
 
@@ -21,6 +24,10 @@ class CartNotifier with ChangeNotifier {
   double get totalPriceOfCartsItems =>
       _totalPriceOfCartItems; // asStringFixed(2)
 
+  int get totalNumberOfSelectedItems => _totalNumberOfSelectedItems;
+
+  bool get showBadgeNotification => _showBagdeNotification;
+
   void addRestaurantMenuItemToCart(
       RestaurantMenuItemModel restaurantMenuItemModel) {
     // add the Resturanet Menu Item to the map
@@ -30,11 +37,12 @@ class CartNotifier with ChangeNotifier {
           (value) =>
               (value == maxNumberOfSpecifiqueCartItem) ? value : ++value);
     } else {
-      // Meaning that this is our first entry
+      // Meaning that this is our first entry of a specifque Food item
+      _showBagdeNotification = true;
       _mapRestaurentMenuItems.putIfAbsent(restaurantMenuItemModel, () => 1);
     }
     _totalPriceOfCartItems += restaurantMenuItemModel.price;
-
+    _totalNumberOfSelectedItems++;
     notifyListeners();
   }
 
@@ -58,6 +66,8 @@ class CartNotifier with ChangeNotifier {
   void deleteAllCartItems() {
     _mapRestaurentMenuItems.clear();
     _totalPriceOfCartItems = 0;
+    _totalNumberOfSelectedItems = 0;
+    _showBagdeNotification = false;
     notifyListeners();
   }
 
@@ -71,15 +81,19 @@ class CartNotifier with ChangeNotifier {
 
     if (_totalPriceOfCartItems != 0)
       _totalPriceOfCartItems -= restaurantMenuItemModel.price;
-
+    _totalNumberOfSelectedItems--;
     notifyListeners();
   }
 
   void setTotalNumberOfSpecifiqueItem(
       RestaurantMenuItemModel restaurantMenuItemModel,
       int totalNumberOfSpecifiqueItem) {
-    _mapRestaurentMenuItems.update(restaurantMenuItemModel,
-        (value) => (value >= 100 && value < 0) ? value : 0);
+    _mapRestaurentMenuItems.update(
+        restaurantMenuItemModel,
+        (value) => (value >= maxNumberOfSpecifiqueCartItem &&
+                value < minNumberOfSpecifiqueCartItem)
+            ? 0 // We don t want a negative order of items and too many orders
+            : value);
     notifyListeners();
   }
 }

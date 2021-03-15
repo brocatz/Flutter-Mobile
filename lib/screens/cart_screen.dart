@@ -98,7 +98,7 @@ class _CartScreenState extends State<StatefulWidget> {
 
                       return CartItem(
                         mapEntryRestaurentMenuItemModel: mapCartItems,
-                        index: index + 1,
+                        index: ++index,
                       );
                     },
                   )

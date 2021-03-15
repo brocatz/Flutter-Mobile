@@ -1,6 +1,6 @@
+import 'package:badges/badges.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/changeNotifier/pageViewChangeNotifier.dart';
 import 'package:flutter_form/models/UserModel.dart';
 import 'package:flutter_form/pageViews/homePageView.dart';
@@ -63,7 +63,14 @@ class _HomePageState extends State<HomePage> {
           elevation: 4.0,
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.shopping_cart),
+                icon: Badge(
+                    showBadge: false,
+                    position: BadgePosition.topEnd(top: -13),
+                    badgeContent: Text(
+                      '',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: Icon(Icons.shopping_cart)),
                 onPressed: () {
                   // open the Cart Page
                   Navigator.of(context)
