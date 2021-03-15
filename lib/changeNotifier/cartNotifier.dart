@@ -42,6 +42,8 @@ class CartNotifier with ChangeNotifier {
       _mapRestaurentMenuItems.putIfAbsent(restaurantMenuItemModel, () => 1);
     }
     _totalPriceOfCartItems += restaurantMenuItemModel.price;
+    _totalPriceOfCartItems =
+        num.parse(_totalPriceOfCartItems.toStringAsFixed(2));
     _totalNumberOfSelectedItems++;
     notifyListeners();
   }
@@ -81,12 +83,11 @@ class CartNotifier with ChangeNotifier {
       if (value > minNumberOfSpecifiqueCartItem) {
         _totalNumberOfSelectedItems--;
         _totalPriceOfCartItems -= restaurantMenuItemModel.price;
+        _totalPriceOfCartItems =
+            num.parse(_totalPriceOfCartItems.toStringAsFixed(2));
       }
 
-      int valueToReturn =
-          (value == minNumberOfSpecifiqueCartItem) ? value : --value;
-
-      return valueToReturn;
+      return (value == minNumberOfSpecifiqueCartItem) ? value : --value;
     });
 
     notifyListeners();
@@ -101,6 +102,18 @@ class CartNotifier with ChangeNotifier {
                 value < minNumberOfSpecifiqueCartItem)
             ? 0 // We don t want a negative order of items and too many orders
             : value);
+    notifyListeners();
+  }
+
+  // This is for the dissimissable
+  // Remove the dissimissable ands substracts the amount added the total
+  void deleteAllRestaurantMenuItemsOfType(
+      RestaurantMenuItemModel key, int numberOfSpecifiqueItems) {
+    _totalPriceOfCartItems -= (key.price * numberOfSpecifiqueItems);
+    _totalNumberOfSelectedItems -= numberOfSpecifiqueItems;
+    if (_totalNumberOfSelectedItems == 0) _showBagdeNotification = false;
+    this._mapRestaurentMenuItems.remove(key);
+
     notifyListeners();
   }
 }
