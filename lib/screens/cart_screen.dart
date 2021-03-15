@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form/animation/pageTransition.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
 import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
@@ -115,7 +116,11 @@ class _CartScreenState extends State<StatefulWidget> {
                       MaterialStateProperty.all<Color>(Colors.black)),
               child: Text(
                   'Purchase Items for : ${cartNotifier.totalPriceOfCartsItems.toStringAsFixed(2)} \$'),
-              onPressed: () {},
+              onPressed: () {
+                // On Check Out
+                Navigator.of(context)
+                    .push(createRouteFromCartScreenToCheckOutScreen());
+              },
             ),
           ),
           floatingActionButtonLocation:

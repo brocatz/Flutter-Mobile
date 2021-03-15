@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 // Not the value of the color
 // It's the color object itself we are passing
 const Color primaryColor = Color(0xFF1d2d44);
