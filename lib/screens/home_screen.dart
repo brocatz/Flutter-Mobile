@@ -9,6 +9,7 @@ import 'package:flutter_form/pageViews/searchPageView.dart';
 import 'package:flutter_form/screens/cart_screen.dart';
 import 'package:flutter_form/widgets/bottomNavigationBar.dart';
 import 'package:flutter_form/widgets/drawer.dart';
+import 'package:flutter_form/widgets/appBarCustom.dart';
 
 import 'package:provider/provider.dart';
 
@@ -50,34 +51,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         key: _drawerKey,
         drawer: CustomDrawer(),
-        appBar: AppBar(
-          title: Text('Discover'),
-          backgroundColor: Color(0xFF1d2d44),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              _drawerKey.currentState.openDrawer();
-            },
-          ),
-          elevation: 4.0,
-          actions: <Widget>[
-            IconButton(
-                icon: Badge(
-                    showBadge: false,
-                    position: BadgePosition.topEnd(top: -13),
-                    badgeContent: Text(
-                      '',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    child: Icon(Icons.shopping_cart)),
-                onPressed: () {
-                  // open the Cart Page
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => CartScreen()));
-                })
-          ],
-        ),
+        appBar: appBar(_drawerKey, context),
         body: _pageView(),
         bottomNavigationBar: CustomBottomNavigationBar(),
       ),

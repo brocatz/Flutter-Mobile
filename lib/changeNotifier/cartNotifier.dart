@@ -71,17 +71,24 @@ class CartNotifier with ChangeNotifier {
     notifyListeners();
   }
 
+  // If item has zero value stop from being able to substract
   void removeRestaurantMenuItemFromCart(
       RestaurantMenuItemModel restaurantMenuItemModel) {
     this._mapRestaurentMenuItems.update(restaurantMenuItemModel, (value) {
       // If the value is zero than don't decrement further
       // we do not want negative values
-      return (value == minNumberOfSpecifiqueCartItem) ? value : --value;
+
+      if (value > minNumberOfSpecifiqueCartItem) {
+        _totalNumberOfSelectedItems--;
+        _totalPriceOfCartItems -= restaurantMenuItemModel.price;
+      }
+
+      int valueToReturn =
+          (value == minNumberOfSpecifiqueCartItem) ? value : --value;
+
+      return valueToReturn;
     });
 
-    if (_totalPriceOfCartItems != 0)
-      _totalPriceOfCartItems -= restaurantMenuItemModel.price;
-    _totalNumberOfSelectedItems--;
     notifyListeners();
   }
 
