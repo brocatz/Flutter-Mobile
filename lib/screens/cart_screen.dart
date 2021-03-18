@@ -115,11 +115,16 @@ class _CartScreenState extends State<StatefulWidget> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.black)),
               child: Text(
-                  'Purchase Items for : ${cartNotifier.totalPriceOfCartsItems.toStringAsFixed(2)} \$'),
+                'Purchase Items for : ${cartNotifier.totalPriceOfCartsItems.toStringAsFixed(2)} \$',
+                style: TextStyle(color: Color(0xFFf1dca7)),
+              ),
               onPressed: () {
-                // On Check Out
-                Navigator.of(context)
-                    .push(createRouteFromCartScreenToCheckOutScreen());
+                // On Check Out if there is a least one item in the cart
+                // We need to recalculate in the items in the cart before showing the checkout page
+                if (cartNotifier.checkCartItemsForAtLeastOneValue()) {
+                  Navigator.of(context)
+                      .push(createRouteFromCartScreenToCheckOutScreen());
+                }
               },
             ),
           ),
