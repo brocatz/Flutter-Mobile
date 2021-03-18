@@ -8,6 +8,8 @@ const Color formButtonColor = Color(0xFF90be6d);
 const Color discoverMenuItemBackgroundColor =
     Color.fromRGBO(248, 237, 235, 0.5);
 
+const Color cartTitleColor = Color(0xFFf1dca7);
+
 enum PopUpMenuOptionType { delete }
 
 /////////////////////////////////////////////////
