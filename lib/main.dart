@@ -51,7 +51,14 @@ class FormTutorial extends StatelessWidget {
                   return Text('Error'); // a widget showing some kind of error
                 }
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return pageView();
+                  return GestureDetector(
+                      onTap: () {
+                        FocusScopeNode currentNode = FocusScope.of(context);
+                        if (!currentNode.hasPrimaryFocus) {
+                          currentNode.unfocus();
+                        }
+                      },
+                      child: pageView());
                 }
 
                 return Center(child: CircularProgressIndicator());
@@ -74,30 +81,27 @@ class FormTutorial extends StatelessWidget {
   }
 
   Widget _application(Widget customForm) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        decoration: BoxDecoration(color: Color(0xFF1d2d44)),
-        child: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xFF618985),
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3),
-                )
-              ],
-            ),
-            margin: EdgeInsets.all(20),
-            padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-              child: customForm,
-            ),
+    return Container(
+      decoration: BoxDecoration(color: Color(0xFF1d2d44)),
+      child: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFF618985),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              )
+            ],
+          ),
+          margin: EdgeInsets.all(20),
+          padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            child: customForm,
           ),
         ),
       ),
