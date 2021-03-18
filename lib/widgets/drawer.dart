@@ -14,27 +14,35 @@ class CustomDrawer extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: DrawerHeader(
-                    padding: EdgeInsets.fromLTRB(30.0, 16.0, 16.0, 8.0),
-                    decoration: BoxDecoration(color: Colors.transparent),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: AssetImage('assets/images/Me.jpg'),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'FirstName',
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                      ],
-                    )),
+                child: Container(
+                  height: 250,
+                  child: DrawerHeader(
+                      padding: EdgeInsets.fromLTRB(30.0, 16.0, 16.0, 8.0),
+                      decoration: BoxDecoration(color: Colors.transparent),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage:
+                                  AssetImage('assets/images/Me.jpg'),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Flexible(
+                            child: Text(
+                              'First' + ' Name',
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
               ),
             ],
           ),
