@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 
 class CartNotifier with ChangeNotifier {
-  final int minNumberOfSpecifiqueCartItem = 0;
+  final int minNumberOfSpecifiqueCartItem = 1;
   final int maxNumberOfSpecifiqueCartItem = 100;
   double _totalPriceOfCartItems = 0;
   int _totalNumberOfSelectedItems = 0;
@@ -42,6 +42,7 @@ class CartNotifier with ChangeNotifier {
       _mapRestaurentMenuItems.putIfAbsent(restaurantMenuItemModel, () => 1);
     }
     _totalPriceOfCartItems += restaurantMenuItemModel.price;
+    // Number must be parse after each operation because of precisions errors
     _totalPriceOfCartItems =
         num.parse(_totalPriceOfCartItems.toStringAsFixed(2));
     _totalNumberOfSelectedItems++;
@@ -49,10 +50,10 @@ class CartNotifier with ChangeNotifier {
   }
 
   // We set the SetIterable right we clicking the Cart Icon
-  // So that we can get the Iterator from tge Map to display
+  // So that we can get the Iterator from the Map to display
   // what we choose
   void setIterable() {
-    _iterable = mapRestaurentMenuItems.entries.iterator;
+    _iterable = _mapRestaurentMenuItems.entries.iterator;
   }
 
   // Return the RestaurantMenuItemModel from Iterator
@@ -115,5 +116,18 @@ class CartNotifier with ChangeNotifier {
     this._mapRestaurentMenuItems.remove(key);
 
     notifyListeners();
+  }
+
+  // We need to check if there is at least one item in the cart before
+  // Proceeding to pay
+  bool checkCartItemsForAtLeastOneValue() {
+    bool isCartItemContainsAtLeastOneValue = false;
+    mapRestaurentMenuItems.forEach((key, value) {
+      if (value > 0) {
+        isCartItemContainsAtLeastOneValue = true;
+        return;
+      }
+    });
+    return isCartItemContainsAtLeastOneValue; // which mean that their's no item in the cart
   }
 }
