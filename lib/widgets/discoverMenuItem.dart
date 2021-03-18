@@ -92,82 +92,90 @@ class DiscoverMenuItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              this.restaurantMenuItemModel.title,
-                              style: TextStyle(
-                                  fontSize: 22.0, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Text(
-                                this.restaurantMenuItemModel.description,
-                                style: TextStyle(fontSize: 16),
-                                overflow: TextOverflow.ellipsis,
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Text(
+                                this.restaurantMenuItemModel.title,
+                                style: TextStyle(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 350,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        'Price: ${this.restaurantMenuItemModel.price} \$',
-                                        textAlign: TextAlign.center,
-                                      )),
-                                      Expanded(
-                                        child: InkWell(
-                                          onTap: () {
-                                            // Do something
-                                            // Add data to list
-                                            cardNotifier
-                                                .addRestaurantMenuItemToCart(this
-                                                    .restaurantMenuItemModel);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'Added ${this.restaurantMenuItemModel.title} for ${this.restaurantMenuItemModel.price} in the cart'),
-                                              action: SnackBarAction(
-                                                label: 'Undo',
-                                                onPressed: () {
-                                                  cardNotifier
-                                                      .removeRestaurantMenuItemFromCart(
-                                                          this.restaurantMenuItemModel);
-                                                },
-                                              ),
-                                            ));
-                                          },
-                                          child: Text(
-                                            'Add to cart',
-                                            style: TextStyle(
-                                                color: Colors.blue[800],
-                                                decoration:
-                                                    TextDecoration.underline),
-                                            textAlign: TextAlign.center,
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  this.restaurantMenuItemModel.description,
+                                  style: TextStyle(fontSize: 16),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 40,
+                                width: 350,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Expanded(
+                                            child: Text(
+                                          'Price: ${this.restaurantMenuItemModel.price} \$',
+                                          textAlign: TextAlign.center,
+                                        )),
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () {
+                                              // Do something
+                                              // Add data to list
+                                              cardNotifier
+                                                  .addRestaurantMenuItemToCart(this
+                                                      .restaurantMenuItemModel);
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'Added ${this.restaurantMenuItemModel.title} for ${this.restaurantMenuItemModel.price} in the cart'),
+                                                action: SnackBarAction(
+                                                  label: 'Undo',
+                                                  onPressed: () {
+                                                    cardNotifier
+                                                        .removeRestaurantMenuItemFromCart(
+                                                            this.restaurantMenuItemModel);
+                                                  },
+                                                ),
+                                              ));
+                                            },
+                                            child: Text(
+                                              'Add to cart',
+                                              style: TextStyle(
+                                                  color: Colors.blue[800],
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
