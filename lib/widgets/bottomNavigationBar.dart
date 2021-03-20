@@ -3,8 +3,6 @@ import 'package:flutter_form/changeNotifier/pageViewChangeNotifier.dart';
 import 'package:provider/provider.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  CustomBottomNavigationBar();
-
   @override
   Widget build(BuildContext context) {
     return Consumer<PageViewChangeNotifier>(

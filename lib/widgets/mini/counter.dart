@@ -46,7 +46,7 @@ class Counter extends StatelessWidget {
                   },
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(2),
-                    FilteringTextInputFormatter(RegExp(r'^[0-9]+$'),
+                    FilteringTextInputFormatter(RegExp(r'^[0-9]{1,2}$'),
                         allow: true, replacementString: ''),
                   ],
                   style: TextStyle(),
