@@ -1,3 +1,5 @@
+import 'package:awesome_card/awesome_card.dart';
+import 'package:awesome_card/credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/checkOutNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
@@ -5,16 +7,14 @@ import 'package:flutter_form/constant/Constant.dart';
 class BillingCreditCardInformation extends StatelessWidget {
   // A ChangeNotifier
   final CheckOutNotifier checkOutNotifier;
-  int identifierFieldWidth;
+  final _key = GlobalKey<FormState>();
+
+  final double identifierFieldWidth = 150.0;
 
   BillingCreditCardInformation({this.checkOutNotifier});
 
   @override
   Widget build(BuildContext context) {
-    final _key = GlobalKey<FormState>();
-
-    const identifierFieldWidth = 150.0;
-
     return Container(
       decoration: BoxDecoration(color: backgroundColor),
       padding: EdgeInsets.only(left: 20, right: 20, top: 10),
@@ -22,8 +22,8 @@ class BillingCreditCardInformation extends StatelessWidget {
         key: _key,
         child: ListView(children: [
           Container(
-            height: 500,
-            width: 300,
+            height: 575,
+            width: 350,
             decoration: BoxDecoration(
                 color: Color(0xFFB0A8B9),
                 borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -52,24 +52,24 @@ class BillingCreditCardInformation extends StatelessWidget {
                   )
                 ],
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.red,
-                      height: 30,
-                      child:
-                          Center(child: Text('Review and Submit Your Order')),
-                    ),
-                  )
-                ],
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(
-                  'Credit Card Information',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ]),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Container(
+              //         color: Colors.red,
+              //         height: 30,
+              //         child:
+              //             Center(child: Text('Review and Submit Your Order')),
+              //       ),
+              //     )
+              //   ],
+              // ),
+              // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              //   Text(
+              //     'Credit Card Information',
+              //     style: TextStyle(fontWeight: FontWeight.bold),
+              //   ),
+              // ]),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -91,6 +91,8 @@ class BillingCreditCardInformation extends StatelessWidget {
                   // ])
                 ],
               ),
+              SizedBox(height: 10),
+              _buildCreditCardAnimation(),
               _buildCardHolderName(identifierFieldWidth),
               _buildCardNumber(identifierFieldWidth),
               _buildCVV(identifierFieldWidth),
@@ -102,6 +104,26 @@ class BillingCreditCardInformation extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildCreditCardAnimation() {
+  return Row(
+    children: [
+      Expanded(
+        child: CreditCard(
+          cardNumber: '2323',
+          cardExpiry: '23232',
+          cardHolderName: 'frf',
+          cvv: 'rtrtr',
+          bankName: "Axis Bank",
+          showBackSide: false,
+          frontBackground: CardBackgrounds.black,
+          backBackground: CardBackgrounds.white,
+          showShadow: true,
+        ),
+      ),
+    ],
+  );
 }
 
 Widget _buildCardHolderName(identifierFieldWidth) {
@@ -253,7 +275,7 @@ Widget _buildSubmitButton() => Row(
             margin: EdgeInsets.only(top: 10),
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: ElevatedButton(
-              child: Text('Proceed to credit card info'),
+              child: Text('Purchased'),
               onPressed: () {
                 // Purchase Items
               },
