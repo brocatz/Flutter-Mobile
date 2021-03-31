@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/constant/Constant.dart';
+import 'package:sign_button/constants.dart';
+import 'package:sign_button/sign_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'home_screen.dart';
 
@@ -11,6 +14,9 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email'],
+  );
 
   bool isPasswordObsure = true;
 
@@ -33,7 +39,12 @@ class _SignInState extends State<SignIn> {
             _buildPassword(),
             SizedBox(height: 15),
             _buildSubmit(),
-            SizedBox(height: 60)
+            SizedBox(height: 15),
+            Divider(
+              color: Colors.black.withOpacity(.3),
+            ),
+            _buildSignInWithGoogle(),
+            _buildSignInWithFacebook()
           ],
         ),
       ),
@@ -154,4 +165,27 @@ class _SignInState extends State<SignIn> {
       },
     );
   }
+
+  Widget _buildSignInWithGoogle() => SignInButton(
+      buttonType: ButtonType.google,
+      onPressed: () async {
+        // Google Sign In
+        try {
+          await _googleSignIn.signIn();
+        } catch (error) {
+          print(error);
+        }
+      });
+
+  Widget _buildSignInWithFacebook() => SignInButton(
+      buttonType: ButtonType.facebook,
+      onPressed: () async {
+        // Facebook Sign
+      });
+
+  // Only availble for apple devices such as laptops and phones
+  Widget _buildSignInWithApple() => SignInButton(
+        buttonType: ButtonType.apple,
+        onPressed: () async {},
+      );
 }

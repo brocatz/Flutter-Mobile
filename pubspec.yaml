@@ -25,14 +25,19 @@ dependencies:
     sdk: flutter
 
   provider: ^5.0.0
-  cloud_firestore: ^0.16.0+1
-  firebase_core: ^0.7.0
-  firebase_auth: ^0.20.1
+  #cloud_firestore: ^0.16.0+1
+  cloud_firestore: ^1.0.3
+  #cfirebase_core: ^0.7.0
+  firebase_core: ^1.0.2
+  #firebase_auth: ^0.20.1
+  firebase_auth: ^1.0.1
+  google_sign_in: ^5.0.1
 
   email_validator: '^1.0.5'
   badges: ^1.2.0
   awesome_card: ^1.1.0
   credit_card: 0.1.6
+  sign_button: ^1.0.2
 
 
   # The following adds the Cupertino Icons font to your application.
