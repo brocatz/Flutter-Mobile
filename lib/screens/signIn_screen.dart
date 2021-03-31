@@ -21,18 +21,21 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: ListView(
-        children: <Widget>[
-          SizedBox(height: 120),
-          _buildTitle(),
-          SizedBox(height: 15),
-          _buildEmail(),
-          SizedBox(height: 15),
-          _buildPassword(),
-          SizedBox(height: 15),
-          _buildSubmit(),
-          SizedBox(height: 60)
-        ],
+      child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            // SizedBox(height: 120),
+            _buildTitle(),
+            SizedBox(height: 15),
+            _buildEmail(),
+            SizedBox(height: 15),
+            _buildPassword(),
+            SizedBox(height: 15),
+            _buildSubmit(),
+            SizedBox(height: 60)
+          ],
+        ),
       ),
     );
   }

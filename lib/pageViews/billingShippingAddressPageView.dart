@@ -14,7 +14,7 @@ class BillingShippingAddress extends StatelessWidget {
     const identifierFieldWidth = 150.0;
     return Container(
       decoration: BoxDecoration(color: backgroundColor),
-      padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Form(
         key: _key,
         child: ListView(children: [

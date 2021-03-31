@@ -229,31 +229,32 @@ class _MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: ListView(
-        children: <Widget>[
-          SizedBox(
-            height: 60,
-          ),
-          Container(
-            height: 50,
-            child: Text(
-              'Register',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+      child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            // SizedBox(height: 60),
+            Container(
+              height: 50,
+              child: Text(
+                'Register',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          SizedBox(height: 15),
-          _buildName(),
-          SizedBox(height: 15),
-          _buildEmail(),
-          SizedBox(height: 15),
-          _buildPassword(),
-          SizedBox(height: 15),
-          _buildConfirmPassword(),
-          SizedBox(height: 15),
-          _submit(),
-          SizedBox(height: 30)
-        ],
+            SizedBox(height: 15),
+            _buildName(),
+            SizedBox(height: 15),
+            _buildEmail(),
+            SizedBox(height: 15),
+            _buildPassword(),
+            SizedBox(height: 15),
+            _buildConfirmPassword(),
+            SizedBox(height: 15),
+            _submit(),
+            SizedBox(height: 30)
+          ],
+        ),
       ),
     );
   }

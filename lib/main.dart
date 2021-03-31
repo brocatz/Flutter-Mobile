@@ -98,7 +98,7 @@ class FormTutorial extends StatelessWidget {
             ],
           ),
           margin: EdgeInsets.all(20),
-          padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+          padding: EdgeInsets.only(/*top: 20 , */ left: 10, right: 10),
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(30)),
             child: customForm,

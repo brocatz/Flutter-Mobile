@@ -30,13 +30,23 @@ class CheckOutScreen extends StatelessWidget {
               },
             ),
           ),
-          body: PageView(
-            controller: checkOutNotifier.getCurrentPageController,
-            // physics: NeverScrollableScrollPhysics(),
-            children: [
-              BillingShippingAddress(checkOutNotifier: checkOutNotifier),
-              BillingCreditCardInformation(checkOutNotifier: checkOutNotifier),
-            ],
+          body: GestureDetector(
+            onTap: () {
+              // FocusScopeNode currentNode = FocusScope.of(context);
+
+              // if (!currentNode.hasPrimaryFocus) {
+              //   currentNode.focusedChild?.unfocus();
+              // }
+            },
+            child: PageView(
+              controller: checkOutNotifier.getCurrentPageController,
+              // physics: NeverScrollableScrollPhysics(),
+              children: [
+                BillingShippingAddress(checkOutNotifier: checkOutNotifier),
+                BillingCreditCardInformation(
+                    checkOutNotifier: checkOutNotifier),
+              ],
+            ),
           ),
         ),
       ),
@@ -47,7 +57,7 @@ class CheckOutScreen extends StatelessWidget {
     return Consumer<CheckOutNotifier>(
       builder: (context, checkOutNotifier, child) => PageView(
         controller: checkOutNotifier.getCurrentPageController,
-        // physics: NeverScrollableScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         children: [
           BillingShippingAddress(checkOutNotifier: checkOutNotifier),
           BillingCreditCardInformation(checkOutNotifier: checkOutNotifier),
