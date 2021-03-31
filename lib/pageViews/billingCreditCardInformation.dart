@@ -1,8 +1,8 @@
 import 'package:credit_card/credit_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form/changeNotifier/checkOutNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
-import 'package:flutter_form/models/CreditCardModel.dart';
 import 'package:provider/provider.dart';
 
 class BillingCreditCardInformation extends StatefulWidget {
@@ -104,27 +104,6 @@ class _BillingCreditCardInformationState
                 //     style: TextStyle(fontWeight: FontWeight.bold),
                 //   ),
                 // ]),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // ToggleButtons(children: <Widget>[
-                    //   Container(
-                    //     width: 50,
-                    //     height: 50,
-                    //     decoration: BoxDecoration(
-                    //         image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 'assets/images/icon/icons8-visa-400.png'))),
-                    //   ),
-                    //   Container(),
-                    //   Container()
-                    // ], isSelected: [
-                    //   false,
-                    //   true,
-                    //   true
-                    // ])
-                  ],
-                ),
                 SizedBox(height: 4),
                 _buildCreditCardAnimation(checkOutNotifier),
                 _buildCardHolderName(
@@ -144,19 +123,6 @@ class _BillingCreditCardInformationState
   Widget _buildCreditCardAnimation(CheckOutNotifier checkOutNotifier) {
     return Row(
       children: [
-        // Expanded(
-        //   child: CreditCard(
-        //     cardNumber: '2323',
-        //     cardExpiry: '23232',
-        //     cardHolderName: 'frf',
-        //     cvv: 'rtrtr',
-        //     bankName: "Axis Bank",
-        //     showBackSide: false,
-        //     frontBackground: CardBackgrounds.black,
-        //     backBackground: CardBackgrounds.white,
-        //     showShadow: true,
-        //   ),
-        // ),
         Expanded(
           child: CreditCardWidget(
             height: 225,
@@ -196,6 +162,11 @@ class _BillingCreditCardInformationState
                 Container(
                   width: identifierFieldWidth,
                   child: TextFormField(
+                    inputFormatters: [
+                      // (\x20) is space
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'[0-9a-zA-Z_(\x20)]'))
+                    ],
                     onChanged: (value) {
                       // FocusScopeNode focusScope = FocusScope.of(context);
                       // CreditCardModel creditCardModel =
@@ -244,6 +215,57 @@ class _BillingCreditCardInformationState
                 Container(
                   width: identifierFieldWidth,
                   child: TextFormField(
+                    inputFormatters: [
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        var text = newValue.text;
+                        text = text.replaceAll(RegExp(r'(\s)|(\D)'), '');
+
+                        int offset = newValue.selection.start;
+                        var subText = newValue.text
+                            .substring(0, offset)
+                            .replaceAll(RegExp(r'(\s)|(\D)'), '');
+                        int realTrimOffset = subText.length;
+
+                        // if (newValue.selection.baseOffset == 0) {
+                        //   return newValue;
+                        // }
+
+                        var buffer = new StringBuffer();
+                        for (int i = 0; i < text.length; i++) {
+                          buffer.write(text[i]);
+                          var nonZeroIndex = i + 1;
+                          if (nonZeroIndex % 4 == 0 &&
+                              nonZeroIndex != text.length) {
+                            buffer.write(
+                                ' '); // Replace this with anything you want to put after each 4 numbers
+
+                          }
+
+                          // This block is only executed once
+                          if (nonZeroIndex % 4 == 0 &&
+                              subText.length == nonZeroIndex &&
+                              nonZeroIndex > 4) {
+                            int moveCursorToRigth = nonZeroIndex ~/ 4 - 1;
+                            realTrimOffset += moveCursorToRigth;
+                          }
+
+                          // This block is only executed once
+                          if (nonZeroIndex % 4 != 0 &&
+                              subText.length == nonZeroIndex) {
+                            int moveCursorToRigth = nonZeroIndex ~/ 4;
+                            realTrimOffset += moveCursorToRigth;
+                          }
+                        }
+
+                        var string = buffer.toString();
+                        return newValue.copyWith(
+                            text: string,
+                            selection: new TextSelection.collapsed(
+                              offset: realTrimOffset,
+                            ));
+                      })
+                    ],
+                    //maxLength: 19,
                     onChanged: (value) {
                       setState(() {
                         cardNumber = value;
@@ -251,6 +273,7 @@ class _BillingCreditCardInformationState
                     },
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
+                        counterText: "",
                         border: InputBorder.none,
                         hintText: '4720 0000 0000 0000',
                         hintStyle: TextStyle(color: Colors.grey)),
@@ -284,6 +307,10 @@ class _BillingCreditCardInformationState
                   width: identifierFieldWidth,
                   child: TextFormField(
                     focusNode: _focusScope,
+                    maxLength: 3,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'(\d)'))
+                    ],
                     onChanged: (value) {
                       setState(() {
                         cvv = value;
@@ -293,7 +320,8 @@ class _BillingCreditCardInformationState
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: '000',
-                        hintStyle: TextStyle(color: Colors.grey)),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        counterText: ""),
                   ),
                 ),
               ],
@@ -325,15 +353,48 @@ class _BillingCreditCardInformationState
                 Container(
                   width: identifierFieldWidth,
                   child: TextFormField(
+                    maxLength: 7,
+                    inputFormatters: [
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        // Make sure to sure a slash after
+                        String text =
+                            newValue.text.replaceAll(RegExp(r'(\D)'), '');
+
+                        if (newValue.selection.baseOffset == 0) {
+                          return newValue;
+                        }
+
+                        var buffer = new StringBuffer();
+
+                        for (int i = 0; i < text.length; i++) {
+                          buffer.write(text[i]);
+                          // It's where we want to put the slash
+                          if (i == 1 && i + 1 != text.length) {
+                            buffer.write(' / ');
+                          }
+                        }
+
+                        // More Filtering
+
+                        var string = buffer.toString();
+                        return newValue.copyWith(
+                            text: string,
+                            selection: new TextSelection.collapsed(
+                                offset: string.length));
+                      })
+                    ],
+                    //maxLength: 4,
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
                         expireDate = value;
                       });
                     },
                     decoration: InputDecoration(
+                        counterText: "",
                         border: InputBorder.none,
                         hintStyle: TextStyle(color: Colors.grey),
-                        hintText: 'H4N H4N'),
+                        hintText: '01/20'),
                   ),
                 )
               ],
