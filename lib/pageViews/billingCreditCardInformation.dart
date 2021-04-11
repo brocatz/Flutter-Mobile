@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:credit_card/credit_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form/changeNotifier/checkOutNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
+import 'package:flutter_form/models/CreditCardModel.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:developer';
 
 class BillingCreditCardInformation extends StatefulWidget {
   final CheckOutNotifier checkOutNotifier;
@@ -18,6 +23,7 @@ class _BillingCreditCardInformationState
     extends State<BillingCreditCardInformation> {
   // A ChangeNotifier
 
+  CreditCardModel userCreditCardModel = new CreditCardModel();
   final _key = GlobalKey<FormState>();
 
   final double identifierFieldWidth = 150.0;
@@ -178,6 +184,12 @@ class _BillingCreditCardInformationState
                         cardholderName = value;
                       });
                     },
+                    onSaved: (value) {
+                      log('Saved value : ' + value);
+                      setState(() {
+                        userCreditCardModel.cardholdername = value;
+                      });
+                    },
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -271,6 +283,11 @@ class _BillingCreditCardInformationState
                         cardNumber = value;
                       });
                     },
+                    onSaved: (value) {
+                      setState(() {
+                        userCreditCardModel.cardNumber = value;
+                      });
+                    },
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         counterText: "",
@@ -314,6 +331,11 @@ class _BillingCreditCardInformationState
                     onChanged: (value) {
                       setState(() {
                         cvv = value;
+                      });
+                    },
+                    onSaved: (value) {
+                      setState(() {
+                        userCreditCardModel.cvv = value;
                       });
                     },
                     keyboardType: TextInputType.number,
@@ -390,6 +412,11 @@ class _BillingCreditCardInformationState
                         expireDate = value;
                       });
                     },
+                    onSaved: (value) {
+                      setState(() {
+                        userCreditCardModel.expireDate = value;
+                      });
+                    },
                     decoration: InputDecoration(
                         counterText: "",
                         border: InputBorder.none,
@@ -415,6 +442,62 @@ class _BillingCreditCardInformationState
                 child: Text('Purchased'),
                 onPressed: () {
                   // Purchase Items
+                  // Validates the form
+
+                  if (!_key.currentState.validate()) return;
+
+                  _key.currentState.save();
+                  // Future<http.Response> _sendCreditData = http.post(
+                  //     Uri.http('10.0.2.2:5000', '/api/flutter'),
+                  //     headers: <String, String>{
+                  //       'Content-Type': 'application/json'
+                  //     },
+                  //     body: jsonEncode(userCreditCardModel));
+
+                  // Future<http.Response> _delay = Future<http.Response>.delayed(
+                  //     const Duration(seconds: 10), () => _sendCreditData);
+
+                  // log(jsonEncode(userCreditCardModel));
+                  // log(userCreditCardModel.toString());
+                  // http.post(Uri.http('10.0.2.2:5000', '/api/flutter'),
+                  //     headers: <String, String>{
+                  //       'Content-Type': 'application/json'
+                  //     },
+                  //     body: jsonEncode(userCreditCardModel));
+
+                  // A widget that builds itself
+                  // Async code
+                  FutureBuilder(
+                      future: http.post(
+                          Uri.http('10.0.2.2:5000', '/api/flutter'),
+                          headers: <String, String>{
+                            'Content-Type': 'application/json'
+                          },
+                          body: jsonEncode(userCreditCardModel)),
+                      builder: (context, snapshot) {
+                        List<Widget> children = [];
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.hasError) {
+                            log(snapshot.error);
+                            children = [Text('Error')];
+                          }
+                        } else if (snapshot.hasError) {
+                          children = [Text('Error')];
+                          log(snapshot.error);
+                        } else {
+                          children = [CircularProgressIndicator()];
+                        }
+                        // WHat we should display to the user no matter what
+
+                        return AlertDialog(
+                          title: Text('Alert Dialog'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: children,
+                            ),
+                          ),
+                        );
+                      });
                 },
               ),
             ),

@@ -19,11 +19,13 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
+  #sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  http: ^0.13.1
   provider: ^5.0.0
   #cloud_firestore: ^0.16.0+1
   cloud_firestore: ^1.0.3
@@ -32,6 +34,7 @@ dependencies:
   #firebase_auth: ^0.20.1
   firebase_auth: ^1.0.1
   google_sign_in: ^5.0.1
+  json_annotation: ^4.0.1
 
   email_validator: '^1.0.5'
   badges: ^1.2.0
@@ -47,6 +50,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.12.2
+  json_serializable: ^4.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -6,6 +6,7 @@ import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 class CartNotifier with ChangeNotifier {
   final int minNumberOfSpecifiqueCartItem = 1;
   final int maxNumberOfSpecifiqueCartItem = 100;
+  RestaurantMenuItemModel _selectedRestaurantMenuItem;
   double _totalPriceOfCartItems = 0;
   int _totalNumberOfSelectedItems = 0;
   bool _showBagdeNotification = false; // False at first
@@ -27,6 +28,9 @@ class CartNotifier with ChangeNotifier {
   int get totalNumberOfSelectedItems => _totalNumberOfSelectedItems;
 
   bool get showBadgeNotification => _showBagdeNotification;
+
+  RestaurantMenuItemModel get selectedRestaurantMenuItem =>
+      _selectedRestaurantMenuItem;
 
   void addRestaurantMenuItemToCart(
       RestaurantMenuItemModel restaurantMenuItemModel) {
@@ -129,5 +133,11 @@ class CartNotifier with ChangeNotifier {
       }
     });
     return isCartItemContainsAtLeastOneValue; // which mean that their's no item in the cart
+  }
+
+  // Set RestaurantMenu for the detail Screen
+  void setSelectedRestaurantMenuItem(
+      RestaurantMenuItemModel restaurantMenuItemModel) {
+    this._selectedRestaurantMenuItem = restaurantMenuItemModel;
   }
 }

@@ -6,15 +6,15 @@ class CheckOutNotifier with ChangeNotifier {
   final PageController _controller = PageController(initialPage: 0);
 
   PageController get getCurrentPageController => _controller;
-  CreditCardModel creditCardModel = CreditCardModel(
-    cardNumber: '',
-    cardholdername: '',
-    cvv: '',
-    expireDate: '',
-  );
+  // CreditCardModel creditCardModel = CreditCardModel(
+  //   cardNumber: '',
+  //   cardholdername: '',
+  //   cvv: '',
+  //   expireDate: '',
+  // );
 
-  void setState2(CreditCardModel creditCardModel) {
-    this.creditCardModel = creditCardModel;
-    notifyListeners();
-  }
+  // void setState2(CreditCardModel creditCardModel) {
+  //   this.creditCardModel = creditCardModel;
+  //   notifyListeners();
+  // }
 }

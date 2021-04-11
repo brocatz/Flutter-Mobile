@@ -47,6 +47,8 @@ class DiscoverMenuItem extends StatelessWidget {
                 Expanded(
                   child: InkWell(
                     onTap: () {
+                      cardNotifier.setSelectedRestaurantMenuItem(
+                          this.restaurantMenuItemModel);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

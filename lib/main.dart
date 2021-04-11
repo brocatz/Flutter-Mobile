@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
-import 'package:flutter_form/screens/register_screen.dart';
-import 'package:flutter_form/screens/signIn_screen.dart';
+import 'package:flutter_form/pageViews/register_screen.dart';
+import 'package:flutter_form/pageViews/signIn_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -76,7 +76,7 @@ class FormTutorial extends StatelessWidget {
     return PageView(
       scrollDirection: Axis.horizontal,
       controller: controller,
-      children: <Widget>[_application(MyCustomForm()), _application(SignIn())],
+      children: <Widget>[_application(RegisterForm()), _application(SignIn())],
     );
   }
 
