@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form/changeNotifier/checkOutNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
 import 'package:flutter_form/models/CreditCardModel.dart';
+import 'package:flutter_form/models/CreditCardApi.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
@@ -29,6 +30,7 @@ class _BillingCreditCardInformationState
   final double identifierFieldWidth = 150.0;
 
   FocusNode _focusScope;
+  bool isPostRequestFinish = false;
 
   String cardholderName = "";
   String cvv = "";
@@ -38,6 +40,7 @@ class _BillingCreditCardInformationState
   @override
   void initState() {
     super.initState();
+
     _focusScope = new FocusNode();
     _focusScope.addListener(() {
       if (_focusScope.hasPrimaryFocus) {
@@ -187,7 +190,8 @@ class _BillingCreditCardInformationState
                     onSaved: (value) {
                       log('Saved value : ' + value);
                       setState(() {
-                        userCreditCardModel.cardholdername = value;
+                        userCreditCardModel.cardholdername = value.replaceAll(
+                            RegExp(r'[^a-zA-Z[[:blank]]]'), '');
                       });
                     },
                     textCapitalization: TextCapitalization.sentences,
@@ -285,7 +289,8 @@ class _BillingCreditCardInformationState
                     },
                     onSaved: (value) {
                       setState(() {
-                        userCreditCardModel.cardNumber = value;
+                        userCreditCardModel.cardNumber =
+                            value.replaceAll(RegExp(r'(\D)|(\s)'), "");
                       });
                     },
                     keyboardType: TextInputType.number,
@@ -335,7 +340,8 @@ class _BillingCreditCardInformationState
                     },
                     onSaved: (value) {
                       setState(() {
-                        userCreditCardModel.cvv = value;
+                        userCreditCardModel.cvv =
+                            value.replaceAll(RegExp(r'(\D)'), "");
                       });
                     },
                     keyboardType: TextInputType.number,
@@ -409,12 +415,13 @@ class _BillingCreditCardInformationState
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
-                        expireDate = value;
+                        expireDate = value.replaceAll(RegExp(r'(\D)|(\s)'), "");
                       });
                     },
                     onSaved: (value) {
                       setState(() {
-                        userCreditCardModel.expireDate = value;
+                        userCreditCardModel.expireDate =
+                            value.replaceAll(RegExp(r'(\D)'), "");
                       });
                     },
                     decoration: InputDecoration(
@@ -467,37 +474,75 @@ class _BillingCreditCardInformationState
 
                   // A widget that builds itself
                   // Async code
-                  FutureBuilder(
-                      future: http.post(
-                          Uri.http('10.0.2.2:5000', '/api/flutter'),
-                          headers: <String, String>{
-                            'Content-Type': 'application/json'
-                          },
-                          body: jsonEncode(userCreditCardModel)),
-                      builder: (context, snapshot) {
-                        List<Widget> children = [];
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasError) {
-                            log(snapshot.error);
-                            children = [Text('Error')];
-                          }
-                        } else if (snapshot.hasError) {
-                          children = [Text('Error')];
-                          log(snapshot.error);
-                        } else {
-                          children = [CircularProgressIndicator()];
-                        }
-                        // WHat we should display to the user no matter what
 
-                        return AlertDialog(
-                          title: Text('Alert Dialog'),
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: children,
-                            ),
-                          ),
-                        );
-                      });
+                  // Future.delayed(Duration(seconds: 5), () {
+                  //   CreditCardApi.sendCreditCardInformation(
+                  //       userCreditCardModel);
+                  // });
+                  showDialog(
+                      context: context,
+                      barrierDismissible: isPostRequestFinish,
+                      builder: (context) => FutureBuilder(
+                          future: Future.delayed(Duration(seconds: 5), () {
+                            // throw ('sdsd');
+                            CreditCardApi.sendCreditCardInformation(
+                                userCreditCardModel);
+                          }),
+                          builder: (context, snapshot) {
+                            isPostRequestFinish = false;
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return AlertDialog(
+                                  title: Text('Processing ...'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [
+                                        Center(
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 8.0,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+
+                              default:
+                                if (snapshot.hasError) {
+                                  isPostRequestFinish = true;
+                                  return AlertDialog(
+                                      title: Text('Erreur ...'),
+                                      content: SingleChildScrollView(
+                                          child: ListBody(
+                                        children: [
+                                          Center(
+                                            child: Icon(
+                                              Icons.clear,
+                                              color: Colors.red,
+                                              size: 45,
+                                            ),
+                                          )
+                                        ],
+                                      )));
+                                } else {
+                                  isPostRequestFinish = true;
+                                  return AlertDialog(
+                                      title: Text('Done'),
+                                      content: SingleChildScrollView(
+                                          child: ListBody(
+                                        children: [
+                                          Center(
+                                            child: Icon(
+                                              Icons.check_circle_outline,
+                                              color: Colors.green,
+                                              size: 50,
+                                            ),
+                                          )
+                                        ],
+                                      )));
+                                }
+                            }
+                          }));
                 },
               ),
             ),
