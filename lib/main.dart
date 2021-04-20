@@ -6,6 +6,7 @@ import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/pageViews/register_screen.dart';
 import 'package:flutter_form/pageViews/signIn_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,10 @@ class FormTutorial extends StatelessWidget {
               ),
             ), */
             body: FutureBuilder(
-              future: _initialization,
+              future: Future.delayed(Duration(seconds: 1), () {
+                //throw ('Custom Error');
+                return _initialization;
+              }),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print('Error my boi');
@@ -59,9 +63,26 @@ class FormTutorial extends StatelessWidget {
                         }
                       },
                       child: pageView());
+                } else {
+                  //return Center(child: CircularProgressIndicator());
                 }
 
-                return Center(child: CircularProgressIndicator());
+                // return Center(
+                //   child: CircularProgressIndicator(
+                //     strokeWidth: 20,
+                //     backgroundColor: Colors.red,
+                //   ),
+                // );
+                return Container(
+                  decoration:
+                      BoxDecoration(color: Color.fromRGBO(32, 32, 32, 0.9)),
+                  child: Container(
+                    child: SpinKitFadingCircle(
+                      color: Colors.blueGrey[50],
+                      size: 55,
+                    ),
+                  ),
+                );
               },
             ),
           )),
