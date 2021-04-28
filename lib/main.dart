@@ -45,7 +45,7 @@ class FormTutorial extends StatelessWidget {
               ),
             ), */
             body: FutureBuilder(
-              future: Future.delayed(Duration(seconds: 1), () {
+              future: Future.delayed(Duration(seconds: 7), () {
                 //throw ('Custom Error');
                 return _initialization;
               }),

@@ -122,8 +122,10 @@ class _CartScreenState extends State<StatefulWidget> {
                 // On Check Out if there is a least one item in the cart
                 // We need to recalculate in the items in the cart before showing the checkout page
                 if (cartNotifier.checkCartItemsForAtLeastOneValue()) {
+                  // Navigator.of(context)
+                  //     .push(createRouteFromCartScreenToCheckOutScreen());
                   Navigator.of(context)
-                      .push(createRouteFromCartScreenToCheckOutScreen());
+                      .push(createRouteFromCartScreenToPaypalCheckoutScreen());
                 }
               },
             ),

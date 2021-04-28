@@ -1,3 +1,8 @@
+///////////////////////////////////////////////
+///       THIS CLASS HAS BEEN ARCHIVE      ///
+/////////////////////////////////////////////
+
+// Due PCI constraints we will archive this class
 import 'dart:convert';
 
 import 'package:credit_card/credit_card_widget.dart';
