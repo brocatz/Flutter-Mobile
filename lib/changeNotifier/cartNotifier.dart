@@ -1,4 +1,6 @@
 import 'dart:collection';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
@@ -139,5 +141,28 @@ class CartNotifier with ChangeNotifier {
   void setSelectedRestaurantMenuItem(
       RestaurantMenuItemModel restaurantMenuItemModel) {
     this._selectedRestaurantMenuItem = restaurantMenuItemModel;
+  }
+
+  // Map data formating
+  // We format the list to send to the server
+  Map toJson() => {
+        "selectedRestaurantMenuItemList": {"sds": "sdsdsd"}
+      };
+
+  Map<String, dynamic> postDataMap = new Map<String, dynamic>();
+
+  // Map sendDataMap() {
+  //   mapRestaurentMenuItems.forEach((key, value) {
+  //     postDataMap[key.id] = value;
+  //   });
+  //   return postDataMap;
+  // }
+
+  String encoding() {
+    postDataMap = mapRestaurentMenuItems.map<String, dynamic>((key, value) =>
+        new MapEntry<String, String>(key.id.toString(), value.toString()));
+
+    String query = Uri(queryParameters: postDataMap).query;
+    return query;
   }
 }

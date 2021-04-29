@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
-import 'package:flutter_form/models/CreditCardModel.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +33,8 @@ class _PayPalInAppWebViewState extends State<PayPalInAppWebView> {
         ),
         body: InAppWebView(
           onWebViewCreated: (InAppWebViewController c) {
+            // print("\n  ${cartNotifer.postSelectedItemToServer()}");
+            // print('PRint data');
             // _controller.complete(c);
             showDialog(
                 context: context,
@@ -77,13 +78,18 @@ class _PayPalInAppWebViewState extends State<PayPalInAppWebView> {
                 });
           },
           initialUrlRequest: URLRequest(
-            url: Uri.http('10.0.2.2:5001', '/api/pay'),
+            url: Uri.http(
+              '10.0.2.2:5001',
+              '/api/pay',
+            ),
             headers: <String, String>{"Content-Type": "application/json"},
             method: 'POST',
             // Pass List Data to show
             // We will need to continue this to pass data to our server
             body: Uint8List.fromList(
-              utf8.encode(jsonDecode('sdsd')),
+              utf8.encode(
+                cartNotifer.encoding(),
+              ),
             ),
           ),
           onLoadStart: (controller, url) {
