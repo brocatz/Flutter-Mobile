@@ -43,6 +43,37 @@ android {
 
     }
 
+    flavorDimensions "app"
+
+    productFlavors {
+        devemulated {
+            dimension "app"
+            //applicationId "com.example.flutter_form.devemulated"
+            applicationIdSuffix ".devemulated"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        devrealdevice {
+            dimension "app"
+            //applicationId "com.example.flutter_form.devrealdevice"
+            applicationIdSuffix ".devrealdevice"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        production {
+            dimension "app"
+            //applicationId "com.example.flutter_form.production"
+            applicationIdSuffix ".production"
+            versionCode 1
+            versionName "1.0"
+
+        }
+    }
+    
+
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

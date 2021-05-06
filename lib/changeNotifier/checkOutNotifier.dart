@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_form/models/CreditCardModel.dart';
 
 class CheckOutNotifier with ChangeNotifier {
   int currentPage = 0;

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
+import 'package:flutter_form/changeNotifier/flavorConfigNotifier.dart';
 import 'package:flutter_form/pageViews/register_screen.dart';
 import 'package:flutter_form/pageViews/signIn_screen.dart';
+import 'package:flutter_form/ressources/app_config.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-void main() {
+void mainEntry(FlavorConfig flavorConfig) {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -17,11 +19,14 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(FormTutorial());
+  runApp(FormTutorial(flavorConfig: flavorConfig));
 }
 
 class FormTutorial extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final FlavorConfig flavorConfig;
+
+  FormTutorial({this.flavorConfig});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,9 @@ class FormTutorial extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => CartNotifier(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FlavorConfigNotifier(flavorConfig),
         )
       ],
       child: MaterialApp(

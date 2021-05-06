@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -82,10 +81,10 @@ class _PayPalInAppWebViewState extends State<PayPalInAppWebView> {
               '10.0.2.2:5001',
               '/api/pay',
             ),
-            headers: <String, String>{"Content-Type": "application/json"},
+            // headers: <String, String>{"Content-Type": "application/json"},
             method: 'POST',
-            // Pass List Data to show
-            // We will need to continue this to pass data to our server
+            // The data is encoded as a map to query string to Uint8List
+            // The serve will deserialize the data
             body: Uint8List.fromList(
               utf8.encode(
                 cartNotifer.encoding(),
@@ -96,15 +95,10 @@ class _PayPalInAppWebViewState extends State<PayPalInAppWebView> {
             // nothing is happening
           },
           onLoadStop: (InAppWebViewController controller, Uri uri) async {
-            var urv = await controller.getUrl();
             if (uri.path == '/checkoutnow') {
               // Removes the alert dialogue
               Navigator.pop(context);
             }
-            print(urv.data);
-            log(urv.data.toString());
-            debugPrint(urv.data.toString());
-            debugPrint(uri.path);
 
             if (uri.path == '/cancelv2') {
               //cancel the request and show a widget

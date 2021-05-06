@@ -1,6 +1,4 @@
 import 'dart:collection';
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
@@ -143,24 +141,34 @@ class CartNotifier with ChangeNotifier {
     this._selectedRestaurantMenuItem = restaurantMenuItemModel;
   }
 
-  // Map data formating
-  // We format the list to send to the server
-  Map toJson() => {
-        "selectedRestaurantMenuItemList": {"sds": "sdsdsd"}
-      };
-
   Map<String, dynamic> postDataMap = new Map<String, dynamic>();
 
-  // Map sendDataMap() {
-  //   mapRestaurentMenuItems.forEach((key, value) {
-  //     postDataMap[key.id] = value;
-  //   });
-  //   return postDataMap;
-  // }
+  //
+  //  A Map with another map inside of it
+  //
+  //  selectedFoodItem : {
+  //                        {foodItemId: 3423 ,
+  //                          quantiy: 24}, {}, {}, ...
+  //                    }
+  // Map<String, Map<String, dynamic>> postDataMapType2 =
+  //     new Map<String, Map<String, dynamic>>();
 
   String encoding() {
     postDataMap = mapRestaurentMenuItems.map<String, dynamic>((key, value) =>
         new MapEntry<String, String>(key.id.toString(), value.toString()));
+
+    // Precalculation
+    // var postDataMapType3 = mapRestaurentMenuItems.map(
+    //     (restaurantMenuItemModel, quantity) =>
+    //         MapEntry<String, dynamic>("orderType", [
+    //           MapEntry<String, dynamic>(
+    //               "foodItemID", restaurantMenuItemModel.id.toString()),
+    //           MapEntry<String, dynamic>("quantity", quantity.toString())
+    //         ]));
+    // Map<String, dynamic> sendData = new Map<String, dynamic>();
+
+    // sendData.putIfAbsent("selectedFoodItem", () => postDataMapType3);
+    //postDataMapType2["selectedItem"] = mapRestaurentMenuItems.map((key, value) => MapEntry<>(key, value))
 
     String query = Uri(queryParameters: postDataMap).query;
     return query;
