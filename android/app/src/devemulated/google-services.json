@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "224257149776",
-    "project_id": "clone-3fccd",
-    "storage_bucket": "clone-3fccd.appspot.com"
+    "project_number": "822947766320",
+    "project_id": "flutter-mobile-restaurant-dev",
+    "storage_bucket": "flutter-mobile-restaurant-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:224257149776:android:4d8cb8ba013941b47f3a55",
+        "mobilesdk_app_id": "1:822947766320:android:6e51234e0db4d77ee2cdf5",
         "android_client_info": {
           "package_name": "com.example.flutter_form.devemulated"
         }
       },
       "oauth_client": [
         {
-          "client_id": "224257149776-i92aurqu12689qmi6elq42q5k10tn0ts.apps.googleusercontent.com",
+          "client_id": "822947766320-qfb2hvo6ltclto912hbrce3ouisaknc8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyArP3dV2Dq9ECQ-DApP2htzTEbYL8eGGrw"
+          "current_key": "AIzaSyBCjEGf5sbcHvS-6Eo0H_Kj3bczFKQKudI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "224257149776-i92aurqu12689qmi6elq42q5k10tn0ts.apps.googleusercontent.com",
+              "client_id": "822947766320-qfb2hvo6ltclto912hbrce3ouisaknc8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

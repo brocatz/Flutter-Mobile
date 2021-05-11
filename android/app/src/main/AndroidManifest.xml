@@ -44,6 +44,16 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Real Ad data for our current Register Account  -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4742873689972973/4894463132"/>
+           
+        <!-- Test Ad data here -->
+        <!-- <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-3940256099942544/6300978111" /> -->
+        
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 

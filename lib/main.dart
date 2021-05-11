@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_form/ads/Adstate.dart';
+import 'package:flutter_form/changeNotifier/AdNotifier.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/changeNotifier/flavorConfigNotifier.dart';
 import 'package:flutter_form/pageViews/register_screen.dart';
+import 'package:flutter_form/pageViews/register_screenPart2.dart';
 import 'package:flutter_form/pageViews/signIn_screen.dart';
 import 'package:flutter_form/ressources/app_config.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void mainEntry(FlavorConfig flavorConfig) {
+  // Use this method when you want to run a plugin before
+  // Ex : Firebase , Google Ads
+  // the runApp() method
   WidgetsFlutterBinding.ensureInitialized();
+
+  final initFuture = MobileAds.instance.initialize();
+  final adState = AdState(initFuture);
 
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -19,14 +29,18 @@ void mainEntry(FlavorConfig flavorConfig) {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(FormTutorial(flavorConfig: flavorConfig));
+  runApp(FormTutorial(
+    flavorConfig: flavorConfig,
+    adState: adState,
+  ));
 }
 
 class FormTutorial extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   final FlavorConfig flavorConfig;
+  final AdState adState;
 
-  FormTutorial({this.flavorConfig});
+  FormTutorial({this.flavorConfig, this.adState});
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +51,9 @@ class FormTutorial extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => FlavorConfigNotifier(flavorConfig),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AdNotifier(adState: adState),
         )
       ],
       child: MaterialApp(
@@ -105,7 +122,16 @@ class FormTutorial extends StatelessWidget {
     return PageView(
       scrollDirection: Axis.horizontal,
       controller: controller,
-      children: <Widget>[_application(RegisterForm()), _application(SignIn())],
+      children: <Widget>[
+        PageView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            _application(RegisterForm()),
+            _application(RegisterFormPart2()),
+          ],
+        ),
+        _application(SignIn())
+      ],
     );
   }
 

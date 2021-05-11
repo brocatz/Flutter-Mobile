@@ -35,7 +35,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.flutter_form"
-        minSdkVersion 21 // min was 16 but updated to 21 for method used
+        minSdkVersion 23 // min was 16 but updated to 21 for method used
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

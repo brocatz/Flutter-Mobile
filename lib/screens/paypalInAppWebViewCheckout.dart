@@ -5,7 +5,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
+import 'package:flutter_form/changeNotifier/flavorConfigNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
+import 'package:flutter_form/ressources/app_config.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +19,8 @@ class PayPalInAppWebView extends StatefulWidget {
 class _PayPalInAppWebViewState extends State<PayPalInAppWebView> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartNotifier>(
-      builder: (context, cartNotifer, child) => Scaffold(
+    return Consumer2<CartNotifier, FlavorConfigNotifier>(
+      builder: (context, cartNotifer, flavorConfigNotifier, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: primaryColor,
           title: Text('Checkout'),
@@ -77,13 +79,16 @@ class _PayPalInAppWebViewState extends State<PayPalInAppWebView> {
                 });
           },
           initialUrlRequest: URLRequest(
-            url: Uri.http(
+            url: flavorConfigNotifier
+                .flavorConfig.apiUriEndPoints[EndPoints.devEmulatedApiEndPoint]
+            /*Uri.http(
               '10.0.2.2:5001',
-              '/api/pay',
-            ),
+              '/api/pay' ,
+            )*/
+            ,
             // headers: <String, String>{"Content-Type": "application/json"},
             method: 'POST',
-            // The data is encoded as a map to query string to Uint8List
+            // The data is en coded as a map to query string to Uint8List
             // The serve will deserialize the data
             body: Uint8List.fromList(
               utf8.encode(
