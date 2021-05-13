@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_form/constant/Constant.dart';
-import 'package:flutter_form/screens/home_screen.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class RegisterFormPart2 extends StatefulWidget {
   @override
@@ -15,14 +15,13 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
   bool isConfirmTextObsure = true;
   // from Icons.visibility_off to Icons.visibility
 
-  String name;
-  String email;
+  String username;
   String password;
   String confirmPassword;
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  Widget _buildName() {
+  Widget _buildUserName() {
     return TextFormField(
       style: TextStyle(
         fontSize: 16,
@@ -31,7 +30,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         // labelText: 'Name'
-        hintText: 'Enter your first Last Name ',
+        hintText: 'Enter your username',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),
           borderSide: BorderSide.none,
@@ -41,7 +40,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
         fillColor: Color(0xFFdee2ff),
       ),
       onSaved: (value) {
-        name = value;
+        username = value;
       },
       /* validator: (value) {
         if (value.isEmpty) return 'Please enter some text';
@@ -50,39 +49,6 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
 
         return null;
       }, */
-    );
-  }
-
-  Widget _buildEmail() {
-    return TextFormField(
-      style: TextStyle(
-        fontSize: 16,
-      ),
-      textCapitalization: TextCapitalization.none,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'Enter Email',
-        prefixIcon: Icon(Icons.mail),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide.none),
-        filled: true,
-        fillColor: Color(0xFFdee2ff),
-      ),
-      onSaved: (value) {
-        email = value;
-      },
-      /*validator: (value) {
-        if (value.isEmpty) {
-          return 'Please enter emailAdress';
-        }
-
-        if (!EmailValidator.validate(value)) {
-          return 'Please enter a valid email address';
-        }
-
-        return null; // Validation Successful
-      },*/
     );
   }
 
@@ -188,40 +154,56 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
         ),
       ),
       onPressed: () async {
-        if (!_formKey.currentState.validate()) return 'Return Something';
-        _formKey.currentState
-            .save(); // Saved all the elements with the onsave method
-        print('Saved');
-        // Register the user
-        try {
-          UserCredential userCredential = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email, password: password);
-          // If the operation succeed register the user on our database
-          // Then see if there is a user and then use the Navigator.push();
-          FirebaseAuth.instance.authStateChanges().listen((User user) {
-            if (user != null) {
-              // Update  the display name then push data
-              user.updateProfile(
-                displayName: name,
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) {
-                  return HomePage();
-                }),
-              );
-            } else {
-              print('An error Occuried when registering');
-            }
-          });
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
-            print('Password is too weak');
-          } else if (e.code == 'email-already-in-use') {
-            print('The account already exist for that email');
-          }
-        }
+        // if (!_formKey.currentState.validate()) return 'Return Something';
+        // _formKey.currentState
+        //     .save(); // Saved all the elements with the onsave method
+        // print('Saved');
+        // // Register the user
+        // try {
+        //   UserCredential userCredential = await FirebaseAuth.instance
+        //       .createUserWithEmailAndPassword(email: email, password: password);
+        //   // If the operation succeed register the user on our database
+        //   // Then see if there is a user and then use the Navigator.push();
+        //   FirebaseAuth.instance.authStateChanges().listen((User user) {
+        //     if (user != null) {
+        //       // Update  the display name then push data
+        //       user.updateProfile(
+        //         displayName: name,
+        //       );
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (_) {
+        //           return HomePage();
+        //         }),
+        //       );
+        //     } else {
+        //       print('An error Occuried when registering');
+        //     }
+        //   });
+        // } on FirebaseAuthException catch (e) {
+        //   if (e.code == 'weak-password') {
+        //     print('Password is too weak');
+        //   } else if (e.code == 'email-already-in-use') {
+        //     print('The account already exist for that email');
+        //   }
+        // }
       },
+    );
+  }
+
+  Widget _buildGender() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ToggleSwitch(
+          minWidth: 90.0,
+          labels: ['Male', 'Female'],
+          activeBgColors: [Colors.blue, Colors.pink],
+          onToggle: (index) {
+            // Change the state of the gender using setState
+          },
+        ),
+      ],
     );
   }
 
@@ -243,13 +225,13 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
               ),
             ),
             SizedBox(height: 15),
-            _buildName(),
-            SizedBox(height: 15),
-            _buildEmail(),
+            _buildUserName(),
             SizedBox(height: 15),
             _buildPassword(),
             SizedBox(height: 15),
             _buildConfirmPassword(),
+            SizedBox(height: 15),
+            _buildGender(),
             SizedBox(height: 15),
             _submit(),
             SizedBox(height: 30)

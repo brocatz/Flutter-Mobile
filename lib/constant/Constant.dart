@@ -11,6 +11,7 @@ const Color discoverMenuItemBackgroundColor =
 const Color cartTitleColor = Color(0xFFf1dca7);
 
 enum PopUpMenuOptionType { delete }
+enum Gender { male, female }
 
 /////////////////////////////////////////////////
 // Sign in form initial values for firebase   //

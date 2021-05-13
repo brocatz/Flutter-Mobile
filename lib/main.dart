@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_form/ads/Adstate.dart';
 import 'package:flutter_form/changeNotifier/AdNotifier.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/changeNotifier/flavorConfigNotifier.dart';
-import 'package:flutter_form/pageViews/register_screen.dart';
-import 'package:flutter_form/pageViews/register_screenPart2.dart';
-import 'package:flutter_form/pageViews/signIn_screen.dart';
+import 'package:flutter_form/changeNotifier/formNotifier.dart';
+import 'package:flutter_form/pageViews/registerAndSignInGlobalPageView.dart';
 import 'package:flutter_form/ressources/app_config.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +19,7 @@ void mainEntry(FlavorConfig flavorConfig) {
   WidgetsFlutterBinding.ensureInitialized();
 
   final initFuture = MobileAds.instance.initialize();
-  final adState = AdState(initFuture);
+  //final adState = AdState(initFuture);
 
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -31,7 +29,7 @@ void mainEntry(FlavorConfig flavorConfig) {
   ]);
   runApp(FormTutorial(
     flavorConfig: flavorConfig,
-    adState: adState,
+    //adState: adState,
   ));
 }
 
@@ -54,6 +52,9 @@ class FormTutorial extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => AdNotifier(adState: adState),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FormNotifier(),
         )
       ],
       child: MaterialApp(
@@ -70,7 +71,7 @@ class FormTutorial extends StatelessWidget {
               ),
             ), */
             body: FutureBuilder(
-              future: Future.delayed(Duration(seconds: 7), () {
+              future: Future.delayed(Duration(seconds: 3), () {
                 //throw ('Custom Error');
                 return _initialization;
               }),
@@ -87,7 +88,7 @@ class FormTutorial extends StatelessWidget {
                           currentNode.unfocus();
                         }
                       },
-                      child: pageView());
+                      child: RegisterAndSignInGlobalPageView());
                 } else {
                   //return Center(child: CircularProgressIndicator());
                 }
@@ -111,55 +112,6 @@ class FormTutorial extends StatelessWidget {
               },
             ),
           )),
-    );
-  }
-
-  Widget pageView() {
-    final controller = PageController(
-      initialPage: 0,
-    );
-
-    return PageView(
-      scrollDirection: Axis.horizontal,
-      controller: controller,
-      children: <Widget>[
-        PageView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            _application(RegisterForm()),
-            _application(RegisterFormPart2()),
-          ],
-        ),
-        _application(SignIn())
-      ],
-    );
-  }
-
-  Widget _application(Widget customForm) {
-    return Container(
-      decoration: BoxDecoration(color: Color(0xFF1d2d44)),
-      child: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFF618985),
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              )
-            ],
-          ),
-          margin: EdgeInsets.all(20),
-          padding: EdgeInsets.only(/*top: 20 , */ left: 10, right: 10),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: customForm,
-          ),
-        ),
-      ),
     );
   }
 }
