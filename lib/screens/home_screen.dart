@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/pageViewChangeNotifier.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_form/models/UserModel.dart';
 import 'package:flutter_form/pageViews/homePageView.dart';
 import 'package:flutter_form/pageViews/orderPageView.dart';
 import 'package:flutter_form/pageViews/searchPageView.dart';
-import 'package:flutter_form/screens/cart_screen.dart';
 import 'package:flutter_form/widgets/bottomNavigationBar.dart';
 import 'package:flutter_form/widgets/drawer.dart';
 import 'package:flutter_form/widgets/appBarCustom.dart';
