@@ -28,32 +28,48 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Center(
-        child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            // SizedBox(height: 120),
-            _buildTitle(),
-            SizedBox(height: 15),
-            _buildEmail(),
-            SizedBox(height: 15),
-            _buildPassword(),
-            SizedBox(height: 15),
-            _buildSubmit(),
-            SizedBox(height: 15),
-            Divider(
-              color: Colors.black.withOpacity(.3),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Stack(
+              alignment: Alignment.topCenter,
+              clipBehavior: Clip.none,
               children: [
-                _buildSignInWithGoogle(),
-                _buildSignInWithFacebook(),
-                _buildSignInWithApple()
-              ],
-            ),
-          ],
-        ),
+                ListView(
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    // SizedBox(height: 120),
+                    _buildTitle(),
+                    SizedBox(height: 15),
+                    _buildEmail(),
+                    SizedBox(height: 15),
+                    _buildPassword(),
+                    SizedBox(height: 15),
+                    _buildSubmit(),
+                    SizedBox(height: 15),
+                    Divider(
+                      color: Colors.black.withOpacity(.3),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildSignInWithGoogle(),
+                        _buildSignInWithFacebook(),
+                        _buildSignInWithApple()
+                      ],
+                    ),
+                  ],
+                ),
+                Positioned(
+                  bottom: -60,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [_buildLostPassword()]),
+                )
+              ]),
+        ],
       ),
     );
   }
@@ -202,6 +218,14 @@ class _SignInState extends State<SignIn> {
         onPressed: () async {},
       );
 
-  Widget _buildLostPassword() =>
-      ElevatedButton(onPressed: () {}, child: Text("LostPassword"));
+  Widget _buildLostPassword() => InkWell(
+        onTap: () {},
+        child: Text(
+          "Lost Password ?",
+          style: TextStyle(
+            color: Colors.blueGrey[800],
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      );
 }

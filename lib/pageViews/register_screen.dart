@@ -217,7 +217,7 @@ class _RegisterFormState extends State<RegisterForm> {
         if (!EmailValidator.validate(value)) {
           setState(() {
             emailError = 'Please enter a valid email address';
-            _isNameErrorActive = true;
+            _isEmailErrorActive = true;
           });
           return emailError;
         }
