@@ -31,7 +31,8 @@ class CartItem extends StatelessWidget {
           },
           child: Container(
             margin: EdgeInsets.only(bottom: 10),
-            width: 250,
+            //width: 250,
+            constraints: BoxConstraints(minWidth: 250),
             height: 120,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),

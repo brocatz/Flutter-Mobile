@@ -6,6 +6,7 @@ import 'package:flutter_form/changeNotifier/AdNotifier.dart';
 import 'package:flutter_form/changeNotifier/cartNotifier.dart';
 import 'package:flutter_form/changeNotifier/flavorConfigNotifier.dart';
 import 'package:flutter_form/changeNotifier/formNotifier.dart';
+import 'package:flutter_form/constant/Constant.dart';
 import 'package:flutter_form/pageViews/registerAndSignInGlobalPageView.dart';
 import 'package:flutter_form/ressources/app_config.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -60,6 +61,7 @@ class FormTutorial extends StatelessWidget {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Form Tutorial',
+          theme: ThemeData(primaryColor: primaryColor),
           home: Scaffold(
             /* appBar: AppBar(
               backgroundColor: Colors.teal,
@@ -70,6 +72,7 @@ class FormTutorial extends StatelessWidget {
                 onPressed: () {},
               ),
             ), */
+
             body: FutureBuilder(
               future: Future.delayed(Duration(seconds: 3), () {
                 //throw ('Custom Error');

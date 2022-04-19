@@ -167,6 +167,12 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
         // save the value
         password = value;
       },
+      toolbarOptions: ToolbarOptions(
+        copy: false,
+        paste: false,
+        selectAll: false,
+        cut: false,
+      ),
     );
   }
 
@@ -220,6 +226,12 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
       onSaved: (value) {
         confirmPassword = value;
       },
+      toolbarOptions: ToolbarOptions(
+        copy: false,
+        paste: false,
+        cut: false,
+        selectAll: false,
+      ),
     );
   }
 

@@ -224,6 +224,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
         return null; // Validation Successful
       },
+      toolbarOptions: ToolbarOptions(
+        copy: false,
+        cut: false,
+        selectAll: false,
+        paste: false,
+      ),
     );
   }
 

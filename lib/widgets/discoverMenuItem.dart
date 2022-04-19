@@ -30,7 +30,8 @@ class DiscoverMenuItem extends StatelessWidget {
                 offset: Offset(0, 3),
               )
             ]),
-        width: 300,
+        constraints: BoxConstraints(minWidth: 300),
+        //width: 300,
         height: 350,
         child: Column(
           children: [
@@ -124,7 +125,8 @@ class DiscoverMenuItem extends StatelessWidget {
                             children: [
                               Container(
                                 height: 40,
-                                width: 350,
+                                //width: 350,
+                                constraints: BoxConstraints(maxWidth: 350),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
