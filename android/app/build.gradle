@@ -52,6 +52,7 @@ android {
             applicationIdSuffix ".devemulated"
             versionCode 1
             versionName "1.0"
+            // apiEndPoint "http://localhost:8080"
         }
 
         devrealdevice {
@@ -60,6 +61,7 @@ android {
             applicationIdSuffix ".devrealdevice"
             versionCode 1
             versionName "1.0"
+            // apiEndPoint "http://localhost:8080"
         }
 
         production {
@@ -68,6 +70,7 @@ android {
             applicationIdSuffix ".production"
             versionCode 1
             versionName "1.0"
+            // apiEndPoint "http://localhost:8080"
 
         }
     }
