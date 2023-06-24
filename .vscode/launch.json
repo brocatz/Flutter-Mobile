@@ -19,7 +19,7 @@
                 "--flavor",
                 "devemulated",
                  "--dart-define",
-                 "APP_API=http://localhost:8080/api/"
+                 "APP_API=http://10.0.2.2:8080/api"
             ]
         }, 
         {
@@ -31,7 +31,7 @@
                 "--flavor",
                 "devrealdevice",
                 "--dart-define",
-                "APP_API=http://localhost:8080/api/"
+                "APP_API=http://localhost:8080/api"
             ]
         },
         {
@@ -43,7 +43,7 @@
                 "--flavor",
                 "production",
                 "--dart-define",
-                "APP_API=http://localhost:8080/api/"
+                "APP_API=http://localhost:8080/api"
                 
             ]
         }

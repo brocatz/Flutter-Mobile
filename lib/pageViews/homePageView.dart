@@ -1,8 +1,9 @@
-import 'dart:io';
+import 'dart:convert';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form/changeNotifier/flavorConfigNotifier.dart';
-import 'package:flutter_form/constant/ConstantTest.dart';
+import 'package:flutter_form/constant/ApiAddresse.dart';
 import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 import 'package:flutter_form/widgets/discoverMenuItem.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -24,14 +25,26 @@ class _HomePageViewSate extends State<HomePageView> {
   void initState() {
     super.initState();
     _initBannerAd();
-    // Use const tp get dart define variables
-    const u = String.fromEnvironment("APP_API");
-    print(u);
+    futureRestaurantItems = fetchRestaurantItems();
   }
 
-  // Future<http.Response>  fetchRestaurantItems()  {
-  //   http.get(Uri.parse(flavor));
-  // }
+  Future<List<RestaurantMenuItemModel>> fetchRestaurantItems() async {
+    // Use const tp get dart define variables
+    const APP_API_URL = String.fromEnvironment("APP_API");
+
+    final response = await http
+        .get(Uri.parse(APP_API_URL + ApiAdresse.ALL_RESTAURANTS_ITEMS));
+
+    if (response.statusCode == 200) {
+      List<dynamic> dynalist = jsonDecode(response.body);
+      List<RestaurantMenuItemModel> restaurantMenuItems =
+          List<RestaurantMenuItemModel>.from(dynalist
+              .map((dynamic item) => RestaurantMenuItemModel.fromJosn(item)));
+      return restaurantMenuItems;
+    } else {
+      return null;
+    }
+  }
 
   void _initBannerAd() {
     _bannerAd = new BannerAd(
@@ -49,6 +62,9 @@ class _HomePageViewSate extends State<HomePageView> {
     _bannerAd.load();
   }
 
+  var fadeAnimateTextStyle = TextStyle(
+    fontSize: 20,
+  );
   @override
   Widget build(BuildContext context) {
     return Consumer<FlavorConfigNotifier>(
@@ -63,27 +79,62 @@ class _HomePageViewSate extends State<HomePageView> {
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.only(
-                    top: 10,
-                    left: 20,
-                    right: 20,
-                  ),
-                  itemCount: foodList.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index == foodList.length) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 20, top: 20),
-                        height: _bannerAd.size.height.toDouble(),
-                        width: _bannerAd.size.width.toDouble(),
-                        child: AdWidget(ad: _bannerAd),
-                      );
-                    }
-                    return DiscoverMenuItem(
-                      restaurantMenuItemModel: foodList[index],
-                    );
-                  },
-                ),
+                child: FutureBuilder(
+                    future: futureRestaurantItems,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        print(snapshot.error);
+                        return Center(
+                            child: Text(
+                          "${snapshot.error}",
+                          style: TextStyle(fontSize: 40),
+                        ));
+                      }
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                            left: 20,
+                            right: 20,
+                          ),
+                          itemCount: snapshot.data.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == snapshot.data.length) {
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 20, top: 20),
+                                height: _bannerAd.size.height.toDouble(),
+                                width: _bannerAd.size.width.toDouble(),
+                                child: AdWidget(ad: _bannerAd),
+                              );
+                            }
+                            return DiscoverMenuItem(
+                              restaurantMenuItemModel: snapshot.data[index],
+                            );
+                          },
+                        );
+                      }
+
+                      return Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                            CircularProgressIndicator(strokeWidth: 10),
+                            SizedBox(height: 40),
+                            AnimatedTextKit(
+                              pause: Duration(milliseconds: 50),
+                              repeatForever: true,
+                              animatedTexts: [
+                                FadeAnimatedText('Loading .',
+                                    textStyle: fadeAnimateTextStyle),
+                                FadeAnimatedText('Loading ..',
+                                    textStyle: fadeAnimateTextStyle),
+                                FadeAnimatedText('Loading ...',
+                                    textStyle: fadeAnimateTextStyle),
+                              ],
+                            ),
+                          ]));
+                    }),
               ),
               // _isAdLoaded
               //     ? Container(

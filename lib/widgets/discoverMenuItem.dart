@@ -4,6 +4,8 @@ import 'package:flutter_form/models/RestaurantMenuItemModel.dart';
 import 'package:flutter_form/screens/restaurantItemDetail_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'package:transparent_image/transparent_image.dart';
+
 class DiscoverMenuItem extends StatelessWidget {
   final RestaurantMenuItemModel restaurantMenuItemModel;
 
@@ -56,6 +58,19 @@ class DiscoverMenuItem extends StatelessWidget {
                               builder: (_) => RestaurantItemDetailScreen()));
                     },
                     child: Container(
+                        child: Stack(fit: StackFit.expand, children: [
+                          Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 20,
+                            ),
+                          ),
+                          Positioned.fill(
+                            child: FadeInImage.memoryNetwork(
+                                fit: BoxFit.fill,
+                                placeholder: kTransparentImage,
+                                image: this.restaurantMenuItemModel.imageUrl),
+                          ),
+                        ]),
                         height: 250,
                         decoration: new BoxDecoration(
                           boxShadow: [
@@ -69,11 +84,10 @@ class DiscoverMenuItem extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),
                               topRight: Radius.circular(30)),
-                          image: DecorationImage(
-                            image: AssetImage(
-                                this.restaurantMenuItemModel.imageUrl),
-                            fit: BoxFit.fill,
-                          ),
+                          // image: DecorationImage(
+                          //   image: null,
+                          //   fit: BoxFit.fill,
+                          // ),
                         )),
                   ),
                 ),
