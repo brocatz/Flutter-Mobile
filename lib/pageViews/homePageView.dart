@@ -42,7 +42,7 @@ class _HomePageViewSate extends State<HomePageView> {
               .map((dynamic item) => RestaurantMenuItemModel.fromJosn(item)));
       return restaurantMenuItems;
     } else {
-      return null;
+      throw Exception("No data found");
     }
   }
 
@@ -74,7 +74,11 @@ class _HomePageViewSate extends State<HomePageView> {
           onRefresh: () {
             // This is a test for now
             // This is suppose to fetch a network request
-            return Future.delayed(Duration(seconds: 4));
+            return Future.delayed(Duration(seconds: 1), () {
+              setState(() {
+                futureRestaurantItems = fetchRestaurantItems();
+              });
+            });
           },
           child: Column(
             children: [

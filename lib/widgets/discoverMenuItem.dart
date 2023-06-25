@@ -58,19 +58,28 @@ class DiscoverMenuItem extends StatelessWidget {
                               builder: (_) => RestaurantItemDetailScreen()));
                     },
                     child: Container(
-                        child: Stack(fit: StackFit.expand, children: [
-                          Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 20,
-                            ),
-                          ),
-                          Positioned.fill(
-                            child: FadeInImage.memoryNetwork(
-                                fit: BoxFit.fill,
-                                placeholder: kTransparentImage,
-                                image: this.restaurantMenuItemModel.imageUrl),
-                          ),
-                        ]),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)),
+                          child: Stack(
+                              // fit: StackFit.expand,
+                              children: [
+                                Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 20,
+                                  ),
+                                ),
+                                Positioned.fill(
+                                  child: FadeInImage.memoryNetwork(
+                                      fit: BoxFit.fill,
+                                      placeholder: kTransparentImage,
+                                      image: this
+                                          .restaurantMenuItemModel
+                                          .imageUrl),
+                                ),
+                              ]),
+                        ),
                         height: 250,
                         decoration: new BoxDecoration(
                           boxShadow: [
