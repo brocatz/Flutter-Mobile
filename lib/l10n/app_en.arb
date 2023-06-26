@@ -1,0 +1,15 @@
+{
+    "login" : "Login",
+    "register" : "Register",
+    
+    
+    "form_username" : "Enter a Username",
+    "form_password" : "Enter your Password",
+    "form_email" : "Enter your Email Adresse",
+    "form_confirmPassword" : "Confirm Password",
+    "form_firstName" : "Enter your First Name",
+    "form_lastName" : "Enter your Last Name",
+    "form_birthday" : "Enter your birthday",
+    "form_forgotPassword" : "Forgot Password?",
+    "form_next" : "Next"
+}

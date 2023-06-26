@@ -9,9 +9,14 @@ import 'package:flutter_form/changeNotifier/formNotifier.dart';
 import 'package:flutter_form/constant/Constant.dart';
 import 'package:flutter_form/pageViews/registerAndSignInGlobalPageView.dart';
 import 'package:flutter_form/ressources/app_config.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+// This package is generated for the localisation
+// The flutter run generates this package if the localization is set up
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void mainEntry(FlavorConfig flavorConfig) {
   // Use this method when you want to run a plugin before
@@ -59,6 +64,18 @@ class FormTutorial extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+          // use the commande flutter run to generate code
+          // fpr newly added locatization string
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('en'), // English
+            Locale('fr'), // French
+          ],
           debugShowCheckedModeBanner: false,
           title: 'Form Tutorial',
           theme: ThemeData(primaryColor: primaryColor),

@@ -4,6 +4,8 @@ import 'package:flutter_form/constant/Constant.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:flutter_form/widgets/errorCustomRegistrationAnimation.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class RegisterFormPart2 extends StatefulWidget {
   @override
   _RegisterFormPart2State createState() => _RegisterFormPart2State();
@@ -45,7 +47,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
             Container(
               height: 50,
               child: Text(
-                'Register',
+                AppLocalizations.of(context).register,
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -80,7 +82,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
           // labelText: 'Name'
-          hintText: 'Enter your preferred username',
+          hintText: AppLocalizations.of(context).form_username,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
             borderSide: BorderSide.none,
@@ -126,7 +128,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
       decoration: InputDecoration(
         fillColor: Color(0xFFdee2ff),
         filled: true,
-        hintText: 'Password',
+        hintText: AppLocalizations.of(context).form_password,
         prefixIcon: Icon(Icons.lock_rounded),
         suffixIcon: IconButton(
           color: isTextObscure ? Colors.blueGrey : Colors.blue,
@@ -180,7 +182,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
     return TextFormField(
       obscureText: isConfirmTextObsure,
       decoration: InputDecoration(
-        hintText: 'Confirm Password my boi',
+        hintText: AppLocalizations.of(context).form_confirmPassword,
         filled: true,
         fillColor: Color(0xFFdee2ff),
         border: OutlineInputBorder(
@@ -260,7 +262,7 @@ class _RegisterFormPart2State extends State<RegisterFormPart2> {
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ))),
       child: Text(
-        'Register',
+        AppLocalizations.of(context).register,
         style: TextStyle(
           fontSize: 16.0,
           color: Colors.black,

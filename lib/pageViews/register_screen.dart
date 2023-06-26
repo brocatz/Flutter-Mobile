@@ -6,6 +6,8 @@ import 'package:flutter_form/constant/Constant.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_form/widgets/errorCustomRegistrationAnimation.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 // This is in the pageView a PageView
 // This is what the user see's when they lauch the app
 
@@ -59,7 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
             Container(
               height: 50,
               child: Text(
-                'Register',
+                AppLocalizations.of(context).register,
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -94,7 +96,7 @@ class _RegisterFormState extends State<RegisterForm> {
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         // labelText: 'Name'
-        hintText: 'Enter your first Name',
+        hintText: AppLocalizations.of(context).form_firstName,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),
           borderSide: BorderSide.none,
@@ -142,7 +144,7 @@ class _RegisterFormState extends State<RegisterForm> {
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
           // labelText: 'Name'
-          hintText: 'Enter your last name',
+          hintText: AppLocalizations.of(context).form_lastName,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
             borderSide: BorderSide.none,
@@ -189,7 +191,7 @@ class _RegisterFormState extends State<RegisterForm> {
       textCapitalization: TextCapitalization.none,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-          hintText: 'Enter Email',
+          hintText: AppLocalizations.of(context).form_email,
           prefixIcon: Icon(Icons.mail),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -270,7 +272,7 @@ class _RegisterFormState extends State<RegisterForm> {
       keyboardType: TextInputType.numberWithOptions(),
       style: TextStyle(fontSize: 16),
       decoration: InputDecoration(
-        hintText: "Please enter your birth Date",
+        hintText: AppLocalizations.of(context).form_birthday,
         fillColor: Color(0xFFdee2ff),
         filled: true,
         prefixIcon: Icon(Icons.calendar_today_rounded),
@@ -293,6 +295,7 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
+// The name of this widget should be next
   Widget _submit() {
     return ElevatedButton(
       style: ButtonStyle(
@@ -302,7 +305,7 @@ class _RegisterFormState extends State<RegisterForm> {
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ))),
       child: Text(
-        'Next',
+        AppLocalizations.of(context).form_next,
         style: TextStyle(
           fontSize: 16.0,
           color: Colors.black,

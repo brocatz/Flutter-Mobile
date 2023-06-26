@@ -1,0 +1,16 @@
+{
+    "login" : "Connection",
+    "register" : "S'inscrire",
+    
+    "form_username" : "Entrez le nom d<utilisateur",
+    "form_password" : "Entrez Mot de passe",
+    "form_email" : "Entrez le  Courriel",
+    "form_confirmPassword" : "Confirmer le mot Password",
+    "form_firstName" : "Entrez le Prénom",
+    "form_lastName" : "Entrez le nom de famille",
+    "form_address" : "Entrez un adresse",
+    "form_birthday" : "Entrez votre Date de naissance",
+    "form_forgotPassword" : "Mot de passe oublié>",
+    "form_next" : "Suivant"
+   
+}

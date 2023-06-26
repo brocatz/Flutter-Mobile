@@ -5,6 +5,8 @@ import 'package:sign_button/constants.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../screens/home_screen.dart';
 
 // This is in the pageView
@@ -76,7 +78,7 @@ class _SignInState extends State<SignIn> {
 
   Widget _buildTitle() {
     // does not do anything yet
-    return Text('Login',
+    return Text(AppLocalizations.of(context).login,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -91,7 +93,7 @@ class _SignInState extends State<SignIn> {
       decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFFdee2ff),
-          hintText: 'Enter email',
+          hintText: AppLocalizations.of(context).form_email,
           prefixIcon: Icon(Icons.mail_rounded),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -117,7 +119,7 @@ class _SignInState extends State<SignIn> {
           borderRadius: BorderRadius.all(Radius.circular(30)),
           borderSide: BorderSide.none,
         ),
-        hintText: 'Enter Password',
+        hintText: AppLocalizations.of(context).form_password,
         prefixIcon: Icon(Icons.lock_rounded),
         suffixIcon: IconButton(
           icon: Icon(
@@ -148,7 +150,7 @@ class _SignInState extends State<SignIn> {
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))))),
       child: Text(
-        'Login',
+        AppLocalizations.of(context).login,
         style: TextStyle(fontSize: 16, color: Colors.black),
       ),
       onPressed: () async {
@@ -221,7 +223,7 @@ class _SignInState extends State<SignIn> {
   Widget _buildLostPassword() => InkWell(
         onTap: () {},
         child: Text(
-          "Lost Password ?",
+          AppLocalizations.of(context).form_forgotPassword,
           style: TextStyle(
             color: Colors.blueGrey[800],
             decoration: TextDecoration.underline,
